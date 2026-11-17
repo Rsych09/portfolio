@@ -30,6 +30,27 @@
   ];
   const ANY_MASTER = { id: 'any', name: 'Будь-який вільний', short: 'Будь-який', mult: 1 };
 
+  // Фото — Unsplash (вільна ліцензія). Замініть на власні, коли будуть.
+  const img = (id, w, h) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}${h ? `&h=${h}` : ''}&q=75`;
+  const MASTER_PHOTOS = {
+    m1: { id: '1553521041-d168abd31de3', pos: '50% 30%' },
+    m2: { id: '1640301133857-c4bc5789c1bb', pos: '50% 35%' },
+    m3: { id: '1598524374912-6b0b0bab43dd', pos: '60% 20%' },
+  };
+  const GALLERY = [
+    { id: '1647140655214-e4a2d914971f', alt: 'Стрижка ножицями', cls: 'tall' },
+    { id: '1599351431202-1e0f0137899a', alt: 'Окантовка небезпечною бритвою' },
+    { id: '1640301133543-41fe25ad6450', alt: 'Класичний fade' },
+    { id: '1739302493888-6f96cbc37105', alt: 'Королівське гоління', cls: 'tall' },
+    { id: '1621605815971-fbc98d665033', alt: 'Професійні інструменти', cls: 'wide' },
+    { id: '1517832606299-7ae9b720a186', alt: 'Оформлення бороди' },
+    { id: '1592647420148-bfcc177e2117', alt: 'Ретро-крісло барбера', cls: 'tall' },
+    { id: '1605497788044-5a32c7078486', alt: 'Укладання після стрижки' },
+  ];
+  // Пари «до/після» — додайте реальні фото клієнтів (із їхньої згоди), і блок з'явиться сам:
+  // { before: 'img/before-1.jpg', after: 'img/after-1.jpg', caption: 'Fade + борода' }
+  const BEFORE_AFTER = [];
+
   const LOCALE = 'uk-UA';
   const fmt = (n) => new Intl.NumberFormat(LOCALE).format(Math.round(n)) + ' ₴';
   const DOW = ['нд', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
@@ -132,8 +153,8 @@
   $('#mastersGrid').innerHTML = MASTERS.map((m) => `
     <article class="master reveal">
       <div class="master__photo" style="--grad:${m.grad}">
+        <img src="${img(MASTER_PHOTOS[m.id].id, 640)}" alt="${m.name}, ${m.role.toLowerCase()}" loading="lazy" width="640" height="672" style="object-position:${MASTER_PHOTOS[m.id].pos}">
         <span class="master__badge">${m.tag}</span>
-        <span class="master__mono">${m.mono}</span>
       </div>
       <div class="master__body">
         <h3>${m.name}</h3>
@@ -217,25 +238,30 @@
   /* --- Слоты: псевдослучайная «занятость», стабильная для даты/мастера --- */
   const hash = (str) => { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0) / 4294967295; };
 
+  const hoursFor = (dow) => (dow === 0 || dow === 6 ? [11, 21] : [10, 22]);
+
+  // Усі слоти дня для майстра: { label, disabled }
+  function slotsFor(dayIdx, masterId, dur) {
+    const d = days[dayIdx];
+    const [open, close] = hoursFor(d.getDay());
+    const now = new Date();
+    const slots = [];
+    for (let m = open * 60; m + dur <= close * 60; m += 30) {
+      const label = `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
+      const past = dayIdx === 0 && m <= now.getHours() * 60 + now.getMinutes() + 30;
+      const busyChance = masterId === 'any' ? 0.25 : 0.42;
+      const busy = hash(`${dateKey(d)}|${masterId || 'x'}|${label}`) < busyChance;
+      slots.push({ label, disabled: past || busy });
+    }
+    return slots;
+  }
+
   function renderSlots() {
     if (state.date === null) {
       bkSlots.innerHTML = '<p class="slots__empty">Оберіть дату, щоб побачити вільний час.</p>';
       return;
     }
-    const d = days[state.date];
-    const weekend = d.getDay() === 0 || d.getDay() === 6;
-    const open = weekend ? 11 : 10;
-    const close = weekend ? 21 : 22;
-    const dur = state.service ? serviceById(state.service).dur : 30;
-    const now = new Date();
-    const slots = [];
-    for (let m = open * 60; m + dur <= close * 60; m += 30) {
-      const label = `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
-      const past = state.date === 0 && m <= now.getHours() * 60 + now.getMinutes() + 30;
-      const busyChance = state.master === 'any' ? 0.25 : 0.42;
-      const busy = hash(`${dateKey(d)}|${state.master || 'x'}|${label}`) < busyChance;
-      slots.push({ label, disabled: past || busy });
-    }
+    const slots = slotsFor(state.date, state.master, state.service ? serviceById(state.service).dur : 30);
     if (!slots.some((s) => !s.disabled)) {
       bkSlots.innerHTML = '<p class="slots__empty">На цей день вільних вікон немає. Спробуйте іншу дату або майстра.</p>';
       return;
@@ -348,6 +374,124 @@
     updateSummary();
     goStep(1);
   });
+
+  /* ================= «Живі» блоки: статус і найближче вікно ================= */
+  const KYIV_DOW = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+  const pad2 = (n) => String(n).padStart(2, '0');
+
+  function kyivNow() {
+    const parts = Object.fromEntries(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Kyiv', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date()).map((p) => [p.type, p.value]));
+    return { dow: KYIV_DOW[parts.weekday], minutes: +parts.hour * 60 + +parts.minute };
+  }
+
+  function statusInfo() {
+    const { dow, minutes } = kyivNow();
+    const [open, close] = hoursFor(dow);
+    if (minutes >= open * 60 && minutes < close * 60) {
+      const left = close * 60 - minutes;
+      return { open: true, text: left <= 60 ? `Зараз відчинено · зачиняємось о ${pad2(close)}:00` : `Зараз відчинено · до ${pad2(close)}:00` };
+    }
+    if (minutes < open * 60) return { open: false, text: `Зараз зачинено · відчинимось сьогодні о ${pad2(open)}:00` };
+    const [nextOpen] = hoursFor((dow + 1) % 7);
+    return { open: false, text: `Зараз зачинено · відчинимось завтра о ${pad2(nextOpen)}:00` };
+  }
+
+  function renderStatus() {
+    const s = statusInfo();
+    $$('[data-live-status]').forEach((el) => {
+      el.textContent = s.text;
+      el.parentElement.classList.toggle('is-open', s.open);
+    });
+  }
+
+  function nearestSlot() {
+    for (let i = 0; i < days.length; i++) {
+      const free = slotsFor(i, 'any', 60).find((s) => !s.disabled);
+      if (free) {
+        const d = days[i];
+        const when = i === 0 ? 'сьогодні' : i === 1 ? 'завтра' : `${d.getDate()} ${MONTHS[d.getMonth()]}`;
+        return { dayIdx: i, time: free.label, text: `${when} о ${free.label}` };
+      }
+    }
+    return null;
+  }
+
+  function renderNextSlot() {
+    const n = nearestSlot();
+    $$('[data-next-slot]').forEach((a) => {
+      a.textContent = n ? n.text : 'дивіться в календарі';
+      a.onclick = n ? () => {
+        // Підставляємо дату в запис: клієнт одразу бачить цей день
+        state.date = n.dayIdx;
+        $$('.date', bkDates).forEach((x) => x.classList.toggle('is-selected', +x.dataset.date === n.dayIdx));
+        renderSlots();
+        updateSummary();
+      } : null;
+    });
+  }
+
+  renderStatus();
+  renderNextSlot();
+  setInterval(() => { renderStatus(); renderNextSlot(); }, 60000);
+
+  /* ================= Галерея та lightbox ================= */
+  const galleryEl = $('#gallery-grid');
+  galleryEl.innerHTML = GALLERY.map((g, i) => `
+    <button type="button" class="gallery__item ${g.cls ? 'g--' + g.cls : ''} reveal" data-i="${i}" aria-label="Відкрити фото: ${g.alt}">
+      <img src="${img(g.id, g.cls === 'wide' ? 900 : 600, g.cls === 'tall' ? 900 : g.cls === 'wide' ? 450 : 600)}" alt="${g.alt}" loading="lazy">
+    </button>`).join('');
+  $$('.gallery__item', galleryEl).forEach((el) => io.observe(el));
+
+  const lb = $('#lightbox');
+  const lbImg = $('#lbImg');
+  let lbIndex = 0;
+  const showLb = (i) => {
+    lbIndex = (i + GALLERY.length) % GALLERY.length;
+    const g = GALLERY[lbIndex];
+    lbImg.src = img(g.id, 1600);
+    lbImg.alt = g.alt;
+    $('#lbCap').textContent = `${g.alt} · ${lbIndex + 1} / ${GALLERY.length}`;
+  };
+  galleryEl.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-i]');
+    if (!b) return;
+    showLb(+b.dataset.i);
+    lb.showModal();
+  });
+  $('#lbClose').addEventListener('click', () => lb.close());
+  $('#lbPrev').addEventListener('click', () => showLb(lbIndex - 1));
+  $('#lbNext').addEventListener('click', () => showLb(lbIndex + 1));
+  lb.addEventListener('click', (e) => { if (e.target === lb) lb.close(); });
+  lb.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') showLb(lbIndex - 1);
+    if (e.key === 'ArrowRight') showLb(lbIndex + 1);
+  });
+  // Свайп на телефоні
+  let touchX = null;
+  lb.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', (e) => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) showLb(lbIndex + (dx < 0 ? 1 : -1));
+    touchX = null;
+  });
+
+  /* ================= До / після ================= */
+  function renderCompare(pairs) {
+    if (!pairs.length) return;
+    $('#compareWrap').hidden = false;
+    $('#compares').innerHTML = pairs.map((p) => `
+      <figure class="compare" style="--pos:50%">
+        <img src="${p.after}" alt="Після: ${p.caption || ''}" loading="lazy">
+        <img class="compare__before" src="${p.before}" alt="До: ${p.caption || ''}" loading="lazy">
+        <span class="compare__tag compare__tag--l">До</span><span class="compare__tag compare__tag--r">Після</span>
+        <span class="compare__handle" aria-hidden="true"></span>
+        <input type="range" min="0" max="100" value="50" aria-label="Порівняти до і після: ${p.caption || ''}">
+        ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ''}
+      </figure>`).join('');
+    $$('.compare input').forEach((r) => r.addEventListener('input', () => r.closest('.compare').style.setProperty('--pos', r.value + '%')));
+  }
+  renderCompare(BEFORE_AFTER);
 
   /* ================= Старт ================= */
   renderTabs();

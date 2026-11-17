@@ -6,6 +6,28 @@
   <title>RAZOR & CO. — барбершоп у центрі Києва</title>
   <meta name="description" content="Барбершоп RAZOR & CO.: чоловічі стрижки, оформлення бороди, королівське гоління. Онлайн-запис за 30 секунд.">
   <meta name="theme-color" content="#0e0d0c">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="uk_UA">
+  <meta property="og:title" content="RAZOR & CO. — барбершоп у центрі Києва">
+  <meta property="og:description" content="Чоловічі стрижки, борода, королівське гоління. Онлайн-запис за 30 секунд.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=1200&h=630&q=75">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BarberShop",
+    "name": "RAZOR & CO.",
+    "image": "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=1200&q=75",
+    "telephone": "+380440000000",
+    "priceRange": "₴₴",
+    "address": { "@type": "PostalAddress", "streetAddress": "вул. Богдана Хмельницького, 12", "addressLocality": "Київ", "addressCountry": "UA" },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "10:00", "closes": "22:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday", "Sunday"], "opens": "11:00", "closes": "21:00" }
+    ]
+  }
+  </script>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230e0d0c'/><text x='32' y='44' font-size='34' font-family='Georgia' font-weight='700' text-anchor='middle' fill='%23c9a24b'>R</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,12 +46,16 @@
     <nav class="nav" id="nav" aria-label="Основне меню">
       <a href="#services">Послуги</a>
       <a href="#masters">Майстри</a>
+      <a href="#gallery">Роботи</a>
       <a href="#booking">Запис</a>
       <a href="#reviews">Відгуки</a>
       <a href="#faq">Питання</a>
       <a href="#contacts">Контакти</a>
     </nav>
     <a href="#booking" class="btn btn--small header__cta">Записатися</a>
+    <a class="header__call" href="tel:+380440000000" aria-label="Подзвонити">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    </a>
     <button class="burger" id="burger" aria-label="Відкрити меню" aria-expanded="false"><span></span><span></span></button>
   </div>
 </header>
@@ -41,6 +67,7 @@
     <div class="hero__bg" aria-hidden="true"></div>
     <div class="container hero__inner">
       <div class="hero__text">
+        <p class="status reveal" aria-live="polite"><i class="dot" aria-hidden="true"></i><span data-live-status>Перевіряємо графік…</span></p>
         <p class="eyebrow reveal">Барбершоп · Київ · з 2016 року</p>
         <h1 class="reveal">
           Стрижка.<br>
@@ -52,6 +79,7 @@
           <a href="#booking" class="btn">Записатися онлайн</a>
           <a href="#services" class="btn btn--ghost">Дивитися ціни</a>
         </div>
+        <p class="next-slot reveal">Найближче вільне вікно: <a href="#booking" data-next-slot>…</a></p>
         <ul class="hero__stats reveal">
           <li><b data-count="9">0</b><span>років на ринку</span></li>
           <li><b data-count="28000" data-plus>0</b><span>стрижок зроблено</span></li>
@@ -59,8 +87,11 @@
         </ul>
       </div>
 
-      <div class="hero__art reveal" aria-hidden="true">
-        <svg class="badge" viewBox="0 0 300 300">
+      <div class="hero__art reveal">
+        <figure class="hero__photo">
+          <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=900&q=75" alt="Інтер'єр барбершопу: шкіряні крісла біля цегляної стіни" width="900" height="1100" fetchpriority="high">
+        </figure>
+        <svg class="badge" viewBox="0 0 300 300" aria-hidden="true">
           <defs>
             <path id="circ" d="M150,150 m-112,0 a112,112 0 1,1 224,0 a112,112 0 1,1 -224,0"/>
           </defs>
@@ -106,6 +137,30 @@
         <h2>Руки, яким <em>довіряють</em></h2>
       </header>
       <div class="masters" id="mastersGrid"></div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="section" id="gallery">
+    <div class="container">
+      <header class="section__head reveal">
+        <p class="eyebrow">Роботи</p>
+        <h2>Результат, який <em>видно</em></h2>
+      </header>
+      <div class="gallery" id="gallery-grid"></div>
+      <div class="compare-wrap" id="compareWrap" hidden>
+        <h3 class="compare-title">До і після</h3>
+        <div class="compares" id="compares"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATMOSPHERE BAND -->
+  <section class="band" aria-label="Атмосфера барбершопу">
+    <div class="band__img" role="img" aria-label="Шкіряні барберські крісла та дзеркала"></div>
+    <div class="container band__text reveal">
+      <p class="eyebrow">Атмосфера</p>
+      <h2>Кожне крісло — як <em>у себе вдома</em></h2>
     </div>
   </section>
 
@@ -296,32 +351,18 @@
         <ul class="contact-list">
           <li><span>Адреса</span><b>Київ, вул. Богдана Хмельницького, 12, вхід із двору</b></li>
           <li><span>Метро</span><b>Золоті ворота, Театральна — 5 хвилин пішки</b></li>
-          <li><span>Години роботи</span><b>Пн–Пт 10:00–22:00<br>Сб–Нд 11:00–21:00</b></li>
+          <li><span>Години роботи</span><b>Пн–Пт 10:00–22:00<br>Сб–Нд 11:00–21:00</b><p class="status status--sm"><i class="dot" aria-hidden="true"></i><span data-live-status></span></p></li>
           <li><span>Телефон</span><b><a href="tel:+380440000000">+38 (044) 000-00-00</a></b></li>
         </ul>
         <div class="socials">
+          <a href="tel:+380440000000" class="btn btn--small">Подзвонити</a>
           <a href="#" class="btn btn--ghost btn--small">Telegram</a>
           <a href="#" class="btn btn--ghost btn--small">Instagram</a>
           <a href="#" class="btn btn--ghost btn--small">Viber</a>
         </div>
       </div>
-      <div class="map reveal" aria-hidden="true">
-        <svg viewBox="0 0 500 420" preserveAspectRatio="xMidYMid slice">
-          <rect width="500" height="420" fill="#161412"/>
-          <g stroke="#2a2622" stroke-width="14" fill="none" stroke-linecap="round">
-            <path d="M-10 90 260 130 520 70"/>
-            <path d="M80 -10 150 200 110 430"/>
-            <path d="M-10 300 240 260 520 330"/>
-            <path d="M330 -10 300 210 390 430"/>
-          </g>
-          <g stroke="#201d1a" stroke-width="6" fill="none" stroke-linecap="round">
-            <path d="M-10 190 520 200"/><path d="M220 -10 210 430"/><path d="M420 -10 460 430"/>
-          </g>
-          <circle cx="262" cy="212" r="46" fill="#c9a24b" fill-opacity=".14"/>
-          <circle cx="262" cy="212" r="22" fill="#c9a24b" fill-opacity=".25" class="pulse"/>
-          <path d="M262 190c-11 0-19 8-19 19 0 14 19 33 19 33s19-19 19-33c0-11-8-19-19-19Z" fill="#c9a24b"/>
-          <circle cx="262" cy="209" r="7" fill="#0e0d0c"/>
-        </svg>
+      <div class="map reveal">
+        <iframe title="Карта: Київ, вул. Богдана Хмельницького, 12" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=%D0%9A%D0%B8%D1%97%D0%B2%2C+%D0%B2%D1%83%D0%BB.+%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD%D0%B0+%D0%A5%D0%BC%D0%B5%D0%BB%D1%8C%D0%BD%D0%B8%D1%86%D1%8C%D0%BA%D0%BE%D0%B3%D0%BE+12&hl=uk&z=16&output=embed"></iframe>
         <a class="map__btn btn btn--small" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=%D0%9A%D0%B8%D1%97%D0%B2%2C+%D0%B2%D1%83%D0%BB.+%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD%D0%B0+%D0%A5%D0%BC%D0%B5%D0%BB%D1%8C%D0%BD%D0%B8%D1%86%D1%8C%D0%BA%D0%BE%D0%B3%D0%BE+12">Відкрити на картах</a>
       </div>
     </div>
@@ -331,10 +372,18 @@
 <footer class="footer">
   <div class="container footer__inner">
     <span class="logo logo--sm"><span>RAZOR <i>&</i> CO.</span></span>
-    <p>© <span id="year"></span> RAZOR & CO. Демо-проєкт: бренд і дані вигадані.</p>
+    <p>© <span id="year"></span> RAZOR & CO. Демо-проєкт: бренд і дані вигадані. Фото: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>.</p>
     <a href="#top">Нагору ↑</a>
   </div>
 </footer>
+
+<dialog class="lightbox" id="lightbox" aria-label="Перегляд фото">
+  <button class="lightbox__close" id="lbClose" aria-label="Закрити">×</button>
+  <button class="lightbox__nav lightbox__nav--prev" id="lbPrev" aria-label="Попереднє фото">‹</button>
+  <img id="lbImg" alt="">
+  <button class="lightbox__nav lightbox__nav--next" id="lbNext" aria-label="Наступне фото">›</button>
+  <p class="lightbox__cap" id="lbCap"></p>
+</dialog>
 
 <script src="js/main.js"></script>
 </body>
