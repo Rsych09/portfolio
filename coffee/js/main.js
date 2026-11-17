@@ -13,6 +13,28 @@
   }
   document.body.classList.toggle('in-tg', inTg);
 
+  // Повноекранний режим: Telegram малює свої елементи (статус-бар, «Закрити», «⋯») поверх сторінки,
+  // тому верх контенту треба опустити на safeAreaInset + contentSafeAreaInset.
+  const FULLSCREEN_FALLBACK_TOP = 96; // якщо клієнт не передав відступи
+  function applyInsets() {
+    if (!inTg) return;
+    let top = 0;
+    try {
+      top = ((tg.safeAreaInset && tg.safeAreaInset.top) || 0) + ((tg.contentSafeAreaInset && tg.contentSafeAreaInset.top) || 0);
+      if (tg.isFullscreen) top = Math.max(top, FULLSCREEN_FALLBACK_TOP);
+    } catch { top = 0; }
+    document.documentElement.style.setProperty('--top-pad', top + 'px');
+    let cover = document.getElementById('topCover');
+    if (top > 0 && !cover) { cover = document.createElement('div'); cover.id = 'topCover'; cover.className = 'top-cover'; document.body.appendChild(cover); }
+    if (cover) cover.hidden = top === 0;
+  }
+  if (inTg) {
+    applyInsets();
+    ['safeAreaChanged', 'contentSafeAreaChanged', 'fullscreenChanged', 'viewportChanged'].forEach((ev) => tg.onEvent(ev, applyInsets));
+    setTimeout(applyInsets, 300); // значення від клієнта можуть прийти з затримкою
+    setTimeout(applyInsets, 1200);
+  }
+
   const haptic = {
     tap() { try { tg.HapticFeedback.impactOccurred('light'); } catch { /* немає API */ } },
     ok() { try { tg.HapticFeedback.notificationOccurred('success'); } catch { /* немає API */ } },

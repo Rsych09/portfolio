@@ -13,6 +13,7 @@
   --ff: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --ease: cubic-bezier(.2, .7, .2, 1);
   --safe-b: env(safe-area-inset-bottom, 0px);
+  --top-pad: 0px; /* у повноекранному режимі Telegram виставляє з JS: статус-бар + панель клієнта */
 }
 :root[data-theme="dark"] {
   --bg: #1b130e;
@@ -43,7 +44,10 @@ h1, h2, h3, h4, p, dl, dd { margin: 0; }
 .app { width: min(480px, 100%); min-height: 100vh; margin-inline: auto; background: var(--bg); padding-bottom: calc(110px + var(--safe-b)); box-shadow: 0 0 80px -30px rgba(43, 29, 20, .45); }
 
 /* Top */
-.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 18px 18px 12px; }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: calc(18px + var(--top-pad)) 18px 12px; }
+/* Підкладка під елементами Telegram, щоб при скролі контент не просвічував крізь них */
+.top-cover[hidden] { display: none; }
+.top-cover { position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: min(480px, 100%); height: var(--top-pad); background: var(--bg); z-index: 15; pointer-events: none; }
 .who { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .avatar { width: 46px; height: 46px; flex: none; border-radius: 50%; background: var(--ink); color: var(--bg); display: grid; place-items: center; font-weight: 900; font-size: 1.2rem; }
 .hello { font-weight: 900; font-size: 1.15rem; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -71,14 +75,14 @@ h1, h2, h3, h4, p, dl, dd { margin: 0; }
 :root[data-theme="dark"] .stamps li { border-color: var(--line); }
 
 /* Categories */
-.cats { position: sticky; top: 0; z-index: 10; display: flex; gap: 8px; overflow-x: auto; padding: 14px 18px 12px; background: var(--bg); scrollbar-width: none; }
+.cats { position: sticky; top: var(--top-pad); z-index: 10; display: flex; gap: 8px; overflow-x: auto; padding: 14px 18px 12px; background: var(--bg); scrollbar-width: none; }
 .cats::-webkit-scrollbar { display: none; }
 .cat { flex: none; padding: 9px 16px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--card); font-weight: 800; font-size: .88rem; transition: all .25s; }
 .cat.is-on { background: var(--ink); border-color: var(--ink); color: var(--bg); }
 
 /* Menu */
 .menu { padding: 0 18px; display: grid; gap: 26px; }
-.sec { scroll-margin-top: 70px; }
+.sec { scroll-margin-top: calc(70px + var(--top-pad)); }
 .sec h2 { font-size: 1.35rem; font-weight: 900; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
 .sec h2 small { font-size: .78rem; font-weight: 700; color: var(--muted); }
 .items { display: grid; gap: 12px; }
@@ -112,12 +116,12 @@ h1, h2, h3, h4, p, dl, dd { margin: 0; }
 /* Sheets (div, не <dialog>: головна кнопка має лежати поверх шторки, як у Telegram) */
 .scrim { position: fixed; inset: 0; z-index: 25; background: rgba(20, 12, 7, .55); backdrop-filter: blur(2px); animation: fade .3s; }
 @keyframes fade { from { opacity: 0; } }
-.sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; width: min(480px, 100%); margin: 0 auto; max-height: 92vh; border-radius: 28px 28px 0 0; background: var(--bg); overflow: hidden; display: flex; flex-direction: column; transform: translateY(105%); visibility: hidden; transition: transform .4s var(--ease), visibility 0s .4s; }
+.sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; width: min(480px, 100%); margin: 0 auto; max-height: calc(100vh - var(--top-pad) - 12px); border-radius: 28px 28px 0 0; background: var(--bg); overflow: hidden; display: flex; flex-direction: column; transform: translateY(105%); visibility: hidden; transition: transform .4s var(--ease), visibility 0s .4s; }
 .sheet.is-open { transform: none; visibility: visible; transition: transform .4s var(--ease); }
 .sheet__x { position: absolute; top: 14px; right: 14px; z-index: 3; width: 38px; height: 38px; border-radius: 50%; background: var(--card); border: 1.5px solid var(--line); font-size: 1.5rem; line-height: 1; display: grid; place-items: center; }
 .sheet__body { overflow-y: auto; padding-bottom: calc(100px + var(--safe-b)); overscroll-behavior: contain; }
 .in-tg .sheet__body { padding-bottom: 24px; }
-.in-tg .app { padding-bottom: 90px; }
+.in-tg .app { padding-bottom: calc(90px + var(--safe-b)); }
 
 .hero { position: relative; aspect-ratio: 16 / 11; background: var(--soft); }
 .hero img { width: 100%; height: 100%; object-fit: cover; }
