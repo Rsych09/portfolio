@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RAZOR & CO. — барбершоп у центрі Києва</title>
+  <meta name="description" content="Барбершоп RAZOR & CO.: чоловічі стрижки, оформлення бороди, королівське гоління. Онлайн-запис за 30 секунд.">
+  <meta name="theme-color" content="#0e0d0c">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230e0d0c'/><text x='32' y='44' font-size='34' font-family='Georgia' font-weight='700' text-anchor='middle' fill='%23c9a24b'>R</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js')</script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="header" id="header">
+  <div class="container header__inner">
+    <a href="#top" class="logo" aria-label="RAZOR & CO.">
+      <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 22 22 9M13 9l10 10M9 9l5 5m4 4 5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/></svg>
+      <span>RAZOR <i>&</i> CO.</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Основне меню">
+      <a href="#services">Послуги</a>
+      <a href="#masters">Майстри</a>
+      <a href="#booking">Запис</a>
+      <a href="#reviews">Відгуки</a>
+      <a href="#faq">Питання</a>
+      <a href="#contacts">Контакти</a>
+    </nav>
+    <a href="#booking" class="btn btn--small header__cta">Записатися</a>
+    <button class="burger" id="burger" aria-label="Відкрити меню" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="container hero__inner">
+      <div class="hero__text">
+        <p class="eyebrow reveal">Барбершоп · Київ · з 2016 року</p>
+        <h1 class="reveal">
+          Стрижка.<br>
+          Борода.<br>
+          <em>Характер.</em>
+        </h1>
+        <p class="hero__lead reveal">Чоловіча територія, де вас не поспішають. Чиста робота, чесні ціни й віскі на здачу — запишіться онлайн за 30 секунд.</p>
+        <div class="hero__actions reveal">
+          <a href="#booking" class="btn">Записатися онлайн</a>
+          <a href="#services" class="btn btn--ghost">Дивитися ціни</a>
+        </div>
+        <ul class="hero__stats reveal">
+          <li><b data-count="9">0</b><span>років на ринку</span></li>
+          <li><b data-count="28000" data-plus>0</b><span>стрижок зроблено</span></li>
+          <li><b data-count="4.9" data-decimals="1">0</b><span>рейтинг на картах</span></li>
+        </ul>
+      </div>
+
+      <div class="hero__art reveal" aria-hidden="true">
+        <svg class="badge" viewBox="0 0 300 300">
+          <defs>
+            <path id="circ" d="M150,150 m-112,0 a112,112 0 1,1 224,0 a112,112 0 1,1 -224,0"/>
+          </defs>
+          <circle cx="150" cy="150" r="146" fill="none" stroke="currentColor" stroke-opacity=".25"/>
+          <circle cx="150" cy="150" r="84" fill="none" stroke="currentColor" stroke-opacity=".25"/>
+          <text class="badge__text"><textPath href="#circ" startOffset="0" textLength="698" lengthAdjust="spacing">BARBERSHOP • EST. 2016 • RAZOR &amp; CO. • KYIV • UA •&#160;</textPath></text>
+          <g class="badge__icon" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
+            <circle cx="128" cy="184" r="14"/><circle cx="172" cy="184" r="14"/>
+            <path d="M136 172 168 112M164 172 132 112"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <a href="#services" class="scroll-hint" aria-label="Прокрутити вниз"><span></span></a>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>Fade</span><span>Crop</span><span>Pompadour</span><span>Undercut</span><span>Класика</span><span>Небезпечна бритва</span><span>Борода</span><span>Fade</span><span>Crop</span><span>Pompadour</span><span>Undercut</span><span>Класика</span><span>Небезпечна бритва</span><span>Борода</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <div class="container">
+      <header class="section__head reveal">
+        <p class="eyebrow">Послуги та ціни</p>
+        <h2>Усе, що потрібно <em>чоловікові</em></h2>
+      </header>
+
+      <div class="tabs reveal" role="tablist" id="tabs"></div>
+      <ul class="price-list reveal" id="priceList"></ul>
+      <p class="note reveal">Ціна вказана для майстрів категорії «Барбер». У старшого барбера +20%. Точну вартість побачите під час запису.</p>
+    </div>
+  </section>
+
+  <!-- MASTERS -->
+  <section class="section section--alt" id="masters">
+    <div class="container">
+      <header class="section__head reveal">
+        <p class="eyebrow">Команда</p>
+        <h2>Руки, яким <em>довіряють</em></h2>
+      </header>
+      <div class="masters" id="mastersGrid"></div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="section">
+    <div class="container">
+      <header class="section__head reveal">
+        <p class="eyebrow">Чому ми</p>
+        <h2>Дрібниці, з яких <em>складається</em> стрижка</h2>
+      </header>
+      <div class="features">
+        <article class="feature reveal">
+          <span class="feature__num">01</span>
+          <h3>Консультація перед стрижкою</h3>
+          <p>Обговорюємо форму голови, тип волосся та спосіб життя. Ви йдете не просто з зачіскою, а зі зрозумілим укладанням на кожен день.</p>
+        </article>
+        <article class="feature reveal">
+          <span class="feature__num">02</span>
+          <h3>Стерильність без компромісів</h3>
+          <p>Інструменти обробляються при вас. Змінні леза для гоління, одноразові комірці та рушники.</p>
+        </article>
+        <article class="feature reveal">
+          <span class="feature__num">03</span>
+          <h3>Час не марнується</h3>
+          <p>Запис точний до хвилини. Якщо ми запізнюємося більше ніж на 10 хвилин, наступна послуга за наш рахунок.</p>
+        </article>
+        <article class="feature reveal">
+          <span class="feature__num">04</span>
+          <h3>Атмосфера, а не черга</h3>
+          <p>Шкіряні крісла, вініл, кава й міцний напій. Можна прийти на годину раніше й просто посидіти.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section class="section section--alt" id="booking">
+    <div class="container">
+      <header class="section__head reveal">
+        <p class="eyebrow">Онлайн-запис</p>
+        <h2>Оберіть час — <em>решту ми беремо на себе</em></h2>
+      </header>
+
+      <div class="booking reveal">
+        <div class="booking__main">
+          <ol class="steps" id="steps">
+            <li data-step="1" class="is-active"><b>1</b><span>Послуга</span></li>
+            <li data-step="2"><b>2</b><span>Майстер</span></li>
+            <li data-step="3"><b>3</b><span>Час</span></li>
+            <li data-step="4"><b>4</b><span>Контакти</span></li>
+          </ol>
+
+          <div class="panel is-active" data-panel="1">
+            <h3>Що робимо?</h3>
+            <div class="choice-grid" id="bkServices"></div>
+          </div>
+
+          <div class="panel" data-panel="2">
+            <h3>Оберіть майстра</h3>
+            <div class="choice-grid" id="bkMasters"></div>
+          </div>
+
+          <div class="panel" data-panel="3">
+            <h3>Коли вам зручно?</h3>
+            <div class="dates" id="bkDates"></div>
+            <div class="slots" id="bkSlots"></div>
+          </div>
+
+          <div class="panel" data-panel="4">
+            <h3>Як із вами зв'язатися?</h3>
+            <form id="bkForm" class="form" novalidate>
+              <label>Ім'я
+                <input type="text" name="name" placeholder="Як до вас звертатися" autocomplete="given-name" required>
+                <small class="err">Введіть ім'я</small>
+              </label>
+              <label>Телефон
+                <input type="tel" name="phone" placeholder="+380 (__) ___-__-__" autocomplete="tel" inputmode="tel" required>
+                <small class="err">Введіть телефон повністю</small>
+              </label>
+              <label>Коментар <span class="opt">необов'язково</span>
+                <textarea name="comment" rows="2" placeholder="Наприклад: хочу як на фото, покажу на місці"></textarea>
+              </label>
+              <label class="check">
+                <input type="checkbox" name="agree" required>
+                <span>Погоджуюся на обробку персональних даних</span>
+              </label>
+              <small class="err err--agree">Потрібна згода, щоб записати вас</small>
+              <button type="submit" class="btn btn--full">Підтвердити запис</button>
+            </form>
+          </div>
+
+          <div class="panel" data-panel="5">
+            <div class="success">
+              <svg viewBox="0 0 52 52" width="72" height="72" aria-hidden="true"><circle cx="26" cy="26" r="24" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15 27l8 8 14-17" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <h3>Ви записані!</h3>
+              <p id="successText"></p>
+              <p class="note">Це демо-версія: дані нікуди не надсилаються.</p>
+              <button class="btn btn--ghost" id="bkReset">Записати ще когось</button>
+            </div>
+          </div>
+
+          <div class="booking__nav" id="bkNav">
+            <button class="btn btn--ghost btn--small" id="bkBack" type="button">← Назад</button>
+            <button class="btn btn--small" id="bkNext" type="button" disabled>Далі →</button>
+          </div>
+        </div>
+
+        <aside class="summary" aria-live="polite">
+          <h4>Ваш запис</h4>
+          <dl>
+            <div><dt>Послуга</dt><dd id="sumService">—</dd></div>
+            <div><dt>Майстер</dt><dd id="sumMaster">—</dd></div>
+            <div><dt>Дата</dt><dd id="sumDate">—</dd></div>
+            <div><dt>Час</dt><dd id="sumTime">—</dd></div>
+          </dl>
+          <div class="summary__total"><span>Разом</span><b id="sumPrice">0 ₴</b></div>
+          <p class="summary__dur" id="sumDur"></p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="section" id="reviews">
+    <div class="container">
+      <header class="section__head reveal">
+        <p class="eyebrow">Відгуки</p>
+        <h2>Кажуть <em>клієнти</em></h2>
+      </header>
+      <div class="reviews">
+        <figure class="review reveal">
+          <div class="stars" aria-label="5 з 5">★★★★★</div>
+          <blockquote>Ходив до різних барберів, скрізь виходило «нормально». Тут уперше майстер спершу запитав, чим я займаюся, а потім запропонував форму. Тримається вже третій тиждень.</blockquote>
+          <figcaption><b>Артем К.</b><span>клієнт із 2022</span></figcaption>
+        </figure>
+        <figure class="review reveal">
+          <div class="stars" aria-label="5 з 5">★★★★★</div>
+          <blockquote>Королівське гоління — це окремий вид задоволення. Гарячий рушник, жодного подразнення. Привів сюди батька на день народження, досі згадує.</blockquote>
+          <figcaption><b>Дмитро Л.</b><span>клієнт із 2020</span></figcaption>
+        </figure>
+        <figure class="review reveal">
+          <div class="stars" aria-label="5 з 5">★★★★★</div>
+          <blockquote>Записався онлайн за хвилину, прийшов — жодної хвилини очікування. Атмосфера класна, не хочеться йти. Ціна чесна для центру.</blockquote>
+          <figcaption><b>Ігор В.</b><span>клієнт із 2023</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section--alt" id="faq">
+    <div class="container container--narrow">
+      <header class="section__head reveal">
+        <p class="eyebrow">Питання</p>
+        <h2>Що зазвичай <em>запитують</em></h2>
+      </header>
+      <div class="faq reveal">
+        <details>
+          <summary>Чи можна прийти без запису?</summary>
+          <p>Можна, якщо є вільне вікно. Але ввечері та на вихідних місця розбирають за 2–3 дні, тому краще записатися заздалегідь.</p>
+        </details>
+        <details>
+          <summary>Що, якщо я запізнююся або не можу прийти?</summary>
+          <p>Попередьте нас за 3 години, і ми перенесемо запис без штрафів. У разі запізнення понад 15 хвилин час може скоротитися.</p>
+        </details>
+        <details>
+          <summary>Чи стрижете ви дітей?</summary>
+          <p>Так, від 5 років. Дитяча стрижка — 450 ₴, майстри вміють знаходити підхід навіть до найнепосидючіших.</p>
+        </details>
+        <details>
+          <summary>Чи можна оплатити карткою?</summary>
+          <p>Так, приймаємо картки, Apple Pay, Google Pay і готівку. Чайові можна залишити майстру переказом на картку.</p>
+        </details>
+        <details>
+          <summary>Чи є паркінг?</summary>
+          <p>У дворі будинку є гостьові місця, а за 3 хвилини пішки — міська парковка.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTS -->
+  <section class="section" id="contacts">
+    <div class="container contacts">
+      <div class="contacts__info reveal">
+        <p class="eyebrow">Контакти</p>
+        <h2>Чекаємо вас <em>в гості</em></h2>
+        <ul class="contact-list">
+          <li><span>Адреса</span><b>Київ, вул. Богдана Хмельницького, 12, вхід із двору</b></li>
+          <li><span>Метро</span><b>Золоті ворота, Театральна — 5 хвилин пішки</b></li>
+          <li><span>Години роботи</span><b>Пн–Пт 10:00–22:00<br>Сб–Нд 11:00–21:00</b></li>
+          <li><span>Телефон</span><b><a href="tel:+380440000000">+38 (044) 000-00-00</a></b></li>
+        </ul>
+        <div class="socials">
+          <a href="#" class="btn btn--ghost btn--small">Telegram</a>
+          <a href="#" class="btn btn--ghost btn--small">Instagram</a>
+          <a href="#" class="btn btn--ghost btn--small">Viber</a>
+        </div>
+      </div>
+      <div class="map reveal" aria-hidden="true">
+        <svg viewBox="0 0 500 420" preserveAspectRatio="xMidYMid slice">
+          <rect width="500" height="420" fill="#161412"/>
+          <g stroke="#2a2622" stroke-width="14" fill="none" stroke-linecap="round">
+            <path d="M-10 90 260 130 520 70"/>
+            <path d="M80 -10 150 200 110 430"/>
+            <path d="M-10 300 240 260 520 330"/>
+            <path d="M330 -10 300 210 390 430"/>
+          </g>
+          <g stroke="#201d1a" stroke-width="6" fill="none" stroke-linecap="round">
+            <path d="M-10 190 520 200"/><path d="M220 -10 210 430"/><path d="M420 -10 460 430"/>
+          </g>
+          <circle cx="262" cy="212" r="46" fill="#c9a24b" fill-opacity=".14"/>
+          <circle cx="262" cy="212" r="22" fill="#c9a24b" fill-opacity=".25" class="pulse"/>
+          <path d="M262 190c-11 0-19 8-19 19 0 14 19 33 19 33s19-19 19-33c0-11-8-19-19-19Z" fill="#c9a24b"/>
+          <circle cx="262" cy="209" r="7" fill="#0e0d0c"/>
+        </svg>
+        <a class="map__btn btn btn--small" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=%D0%9A%D0%B8%D1%97%D0%B2%2C+%D0%B2%D1%83%D0%BB.+%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD%D0%B0+%D0%A5%D0%BC%D0%B5%D0%BB%D1%8C%D0%BD%D0%B8%D1%86%D1%8C%D0%BA%D0%BE%D0%B3%D0%BE+12">Відкрити на картах</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <span class="logo logo--sm"><span>RAZOR <i>&</i> CO.</span></span>
+    <p>© <span id="year"></span> RAZOR & CO. Демо-проєкт: бренд і дані вигадані.</p>
+    <a href="#top">Нагору ↑</a>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
