@@ -23,7 +23,43 @@
     { id: 'p10', name: 'Teal 95 Runner', brand: 'VOLTA', price: 4590, pop: 88, photo: '1550399865-ec7d23b18e8e', type: 'Бігові', color: 'Темно-бірюзовий', desc: 'Ретро-силует із помітною повітряною вставкою. Глибокий бірюзовий із білим шнурком.' },
     { id: 'p11', name: 'Midnight Force', brand: 'KRAFT', price: 3890, old: 4590, pop: 85, photo: '1543508282-6319a3e2621f', type: 'Лайфстайл', color: 'Чорний', desc: 'Чорні шкіряні кросівки з контрастним логотипом. Щільна підошва та стійкий до подряпин верх.' },
     { id: 'p12', name: 'High Top Ghost', brand: 'NORTH SOLE', price: 4990, pop: 70, photo: '1512374382149-233c42b6a83b', type: 'High-top', color: 'Білий', desc: 'Високі кросівки з фіксацією щиколотки. Білий верх із текстурою та м’який комір.' },
+    { id: 'p13', name: 'Solar Max Low', brand: 'AERO', price: 4190, pop: 91, photo: '1600185365926-3a2ce3cdb9eb', type: 'Лайфстайл', color: 'Білий/Помаранч' },
+    { id: 'p14', name: 'Shadow Flyer', brand: 'STRIDE', price: 4890, tag: 'new', pop: 89, photo: '1491553895911-0055eca6402d', type: 'Бігові', color: 'Чорний' },
+    { id: 'p15', name: 'Studio White Low', brand: 'NORTH SOLE', price: 2890, pop: 93, photo: '1695073621086-aa692bc32a3d', type: 'Класика', color: 'Білий' },
+    { id: 'p16', name: 'Court Pair White', brand: 'VOLTA', price: 3090, pop: 84, photo: '1608229751021-ed4bd8677753', type: 'Класика', color: 'Білий' },
+    { id: 'p17', name: 'Heritage Grey', brand: 'KRAFT', price: 3590, pop: 79, photo: '1544441892-794166f1e3be', type: 'Класика', color: 'Білий/Сірий' },
+    { id: 'p18', name: 'Dune Hi Mid', brand: 'STRIDE', price: 4390, pop: 76, photo: '1542219550-37153d387c27', type: 'High-top', color: 'Пісочний' },
+    { id: 'p19', name: 'Chicago Low', brand: 'KRAFT', price: 3990, old: 4690, pop: 87, photo: '1552346154-21d32810aba3', type: 'Скейт', color: 'Червоний/Чорний' },
+    { id: 'p20', name: 'Mono White Court', brand: 'VOLTA', price: 3290, pop: 82, photo: '1587563871167-1ee9c731aefb', type: 'Класика', color: 'Білий' },
+    { id: 'p21', name: 'Panda Hi', brand: 'NORTH SOLE', price: 4690, tag: 'new', pop: 94, photo: '1787461361732-b147a1a2d886', type: 'High-top', color: 'Чорний/Білий' },
+    { id: 'p22', name: 'Wheat Force', brand: 'AERO', price: 3790, pop: 78, photo: '1549298916-b41d501d3772', type: 'Лайфстайл', color: 'Пшеничний' },
+    { id: 'p23', name: 'Cement Grey 4', brand: 'STRIDE', price: 5490, pop: 81, photo: '1656335362192-2bc9051b1824', type: 'Лайфстайл', color: 'Сірий' },
+    { id: 'p24', name: 'Red Block Low', brand: 'KRAFT', price: 3190, pop: 73, photo: '1597045566677-8cf032ed6634', type: 'Скейт', color: 'Білий/Червоний' },
+    { id: 'p25', name: 'Bred High', brand: 'STRIDE', price: 5290, old: 5990, pop: 88, photo: '1731132198530-e4b2dc51d511', type: 'High-top', color: 'Червоний/Чорний' },
+    { id: 'p26', name: 'Cherry Low', brand: 'KRAFT', price: 2990, pop: 75, photo: '1656944227480-98180d2a5155', type: 'Скейт', color: 'Червоний/Білий' },
+    { id: 'p27', name: 'Pine Green Retro', brand: 'NORTH SOLE', price: 5690, tag: 'new', pop: 90, photo: '1684918725924-ab55e49de549', type: 'Лайфстайл', color: 'Зелений/Білий' },
+    { id: 'p28', name: 'Taxi Hi', brand: 'STRIDE', price: 4990, pop: 85, photo: '1661324257527-ce9379163e1b', type: 'High-top', color: 'Жовтий/Чорний' },
+    { id: 'p29', name: 'Mint Haze Hi', brand: 'VOLTA', price: 4590, old: 5190, pop: 72, photo: '1552066344-2464c1135c32', type: 'High-top', color: 'М’ятний/Рожевий' },
+    { id: 'p30', name: 'Terrace Suede', brand: 'VOLTA', price: 3490, pop: 71, photo: '1774200449073-14837773dcf2', type: 'Класика', color: 'Таупе' },
+    { id: 'p31', name: 'Cobalt Forum', brand: 'AERO', price: 3890, pop: 69, photo: '1620794341491-76be6eeb6946', type: 'Лайфстайл', color: 'Білий/Синій' },
+    { id: 'p32', name: 'Fusion Pace', brand: 'AERO', price: 4290, pop: 83, photo: '1691067951700-138ca8f4841f', type: 'Бігові', color: 'Синій/Червоний' },
+    { id: 'p33', name: 'Stripe Trainer', brand: 'STRIDE', price: 2890, pop: 68, photo: '1656057903797-175389ce695d', type: 'Бігові', color: 'Чорний/Білий' },
+    { id: 'p34', name: 'Terrace White', brand: 'VOLTA', price: 3390, pop: 67, photo: '1718220095476-7916e897fc55', type: 'Класика', color: 'Білий' },
+    { id: 'p35', name: 'Flare 90', brand: 'AERO', price: 5190, tag: 'new', pop: 96, photo: '1606890657264-e5a411daf9ef', type: 'Бігові', color: 'Червоний/Жовтий' },
+    { id: 'p36', name: 'Parrot Skate Low', brand: 'KRAFT', price: 4590, pop: 79, photo: '1605771943938-9bce3f19dbc7', type: 'Скейт', color: 'Бірюзовий/Помаранч' },
+    { id: 'p37', name: 'Black Tab Low', brand: 'NORTH SOLE', price: 3190, pop: 74, photo: '1676821666381-c0456feeeb07', type: 'Класика', color: 'Чорний/Білий' },
+    { id: 'p38', name: 'Obsidian Low', brand: 'NORTH SOLE', price: 3490, pop: 66, photo: '1632497775901-50ba4637399f', type: 'Лайфстайл', color: 'Чорний' },
+    { id: 'p39', name: 'Crimson Air Hi', brand: 'STRIDE', price: 5590, tag: 'new', pop: 92, photo: '1761330461729-6e5aacbf11b8', type: 'High-top', color: 'Червоний' },
+    { id: 'p40', name: 'Retro Runner Pair', brand: 'AERO', price: 3690, old: 4390, pop: 77, photo: '1605523741177-cd660595c2cf', type: 'Бігові', color: 'Білий/Червоний' },
   ];
+  const DESC_BY_TYPE = {
+    'Бігові': 'Легкі кросівки з пружною амортизацією та дихаючим верхом. Тримають стопу на швидкому темпі й виглядають добре з джинсами.',
+    'Лайфстайл': 'Щоденні кросівки з м’якою устілкою та стійким до подряпин верхом. Комфортні на цілий день у місті.',
+    'Скейт': 'Підсилений носок, міцна прошивка та щільна підошва для гарного зчеплення. Витримують активну їзду й асфальт.',
+    'Класика': 'Чистий мінімалістичний силует, який пасує до будь-якого образу. Натуральна шкіра або нубук та акуратна підошва.',
+    'High-top': 'Високий верх із надійною фіксацією щиколотки. Виразний силует і стійка конструкція для вулиці.',
+  };
+  PRODUCTS.forEach((p) => { p.desc = p.desc || DESC_BY_TYPE[p.type]; });
   const SPECS = (p) => [['Колір', p.color], ['Тип', p.type], ['Верх', 'Натуральна шкіра / текстиль'], ['Підошва', 'Гума'], ['Артикул', p.id.toUpperCase().replace('P', 'NS-') + '0']];
 
   const CITIES = ['Київ', 'Львів', 'Одеса', 'Харків', 'Дніпро', 'Запоріжжя', 'Вінниця', 'Івано-Франківськ', 'Полтава', 'Чернівці'];
@@ -157,10 +193,18 @@
     </article>`;
   }
 
-  function render() {
+  const PAGE = 12;
+  let shown = PAGE;
+
+  // render() — після зміни фільтрів: повертає на першу «сторінку»
+  function render() { shown = PAGE; draw(); }
+
+  function draw() {
     const list = filtered();
+    const page = list.slice(0, shown);
     gridEl.innerHTML = list.length
-      ? list.map(cardHtml).join('')
+      ? page.map((p, i) => cardHtml(p, i % PAGE)).join('') +
+        (list.length > shown ? `<div class="more"><button class="btn btn--line" data-more>Показати ще ${Math.min(PAGE, list.length - shown)} <span>з ${list.length - shown}</span></button></div>` : '')
       : `<div class="empty"><h3>Нічого не знайдено</h3><p>Спробуйте змінити фільтри або скинути їх.</p><button class="btn btn--sm" data-reset>Скинути фільтри</button></div>`;
     $('#found').textContent = `Знайдено: ${list.length} з ${PRODUCTS.length}`;
     $('#priceOut').textContent = fmt(filters.maxPrice);
@@ -191,6 +235,7 @@
 
   gridEl.addEventListener('click', (e) => {
     if (e.target.closest('[data-reset]')) return resetFilters();
+    if (e.target.closest('[data-more]')) { shown += PAGE; return draw(); }
     const w = e.target.closest('[data-wish]');
     if (w) return toggleWish(w.dataset.wish);
     const o = e.target.closest('[data-open]');
@@ -203,7 +248,7 @@
     store.set('wish', [...wish]);
     toast(wish.has(id) ? 'Додано в обране' : 'Прибрано з обраного');
     syncWish();
-    if (filters.wishOnly) render();
+    if (filters.wishOnly) draw();
   }
   function syncWish() {
     $$('[data-wish]').forEach((b) => b.setAttribute('aria-pressed', String(wish.has(b.dataset.wish))));
@@ -479,6 +524,7 @@
 
   /* ================= Старт ================= */
   $('#year').textContent = new Date().getFullYear();
+  $$('[data-models]').forEach((el) => { el.textContent = PRODUCTS.length; });
   render();
   syncWish();
   renderCart();
