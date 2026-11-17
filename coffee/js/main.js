@@ -146,21 +146,41 @@
     const el = document.createElement('div');
     el.className = 'toast';
     el.textContent = msg;
-    $('#toasts').appendChild(el);
+    $('#toasts').replaceChildren(el); // нове повідомлення замінює попереднє, а не складається в стопку
     setTimeout(() => { el.classList.add('is-out'); setTimeout(() => el.remove(), 300); }, 2200);
   }
 
   /* ================= Тема та привітання ================= */
   const root = document.documentElement;
   const metaTheme = $('meta[name="theme-color"]');
+  // Вибір теми: auto (як у Telegram / системі) → light → dark. Запам'ятовується.
+  const THEMES = [
+    { id: 'auto', icon: '🌓', name: 'авто, як у Telegram' },
+    { id: 'light', icon: '☀️', name: 'світла' },
+    { id: 'dark', icon: '🌙', name: 'темна' },
+  ];
+  let themePref = store.get('theme', 'auto');
+  if (!THEMES.some((t) => t.id === themePref)) themePref = 'auto';
+
   function applyTheme() {
-    const scheme = (tg && tg.colorScheme) || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    root.dataset.theme = scheme;
+    const system = (tg && tg.colorScheme) || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    root.dataset.theme = themePref === 'auto' ? system : themePref;
     const bg = getComputedStyle(root).getPropertyValue('--bg').trim();
     if (metaTheme) metaTheme.content = bg;
     if (inTg) { try { tg.setHeaderColor(bg); tg.setBackgroundColor(bg); } catch { /* старі клієнти */ } }
+    const cur = THEMES.find((t) => t.id === themePref);
+    $('#themeIcon').textContent = cur.icon;
+    $('#themeBtn').setAttribute('aria-label', `Тема оформлення: ${cur.name}. Натисніть, щоб змінити`);
   }
   applyTheme();
+  $('#themeBtn').addEventListener('click', () => {
+    const next = THEMES[(THEMES.findIndex((t) => t.id === themePref) + 1) % THEMES.length];
+    themePref = next.id;
+    store.set('theme', themePref);
+    applyTheme();
+    haptic.tap();
+    toast(`Тема: ${next.name}`);
+  });
   if (inTg) tg.onEvent('themeChanged', applyTheme);
   else matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
 

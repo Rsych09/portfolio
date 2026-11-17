@@ -55,6 +55,11 @@ h1, h2, h3, h4, p, dl, dd { margin: 0; }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); flex: none; }
 .dot.is-open { background: var(--ok); animation: live 2s ease-out infinite; }
 @keyframes live { 0% { box-shadow: 0 0 0 0 rgba(63, 143, 91, .5); } 100% { box-shadow: 0 0 0 9px rgba(63, 143, 91, 0); } }
+.who__text { min-width: 0; }
+.addr { color: var(--muted); font-size: .78rem; font-weight: 700; margin-top: 1px; }
+.theme-btn { flex: none; width: 46px; height: 46px; border-radius: 50%; background: var(--card); border: 1.5px solid var(--line); display: grid; place-items: center; font-size: 1.3rem; line-height: 1; transition: transform .25s var(--ease), border-color .25s; }
+.theme-btn:hover { border-color: var(--accent); }
+.theme-btn:active { transform: scale(.9) rotate(20deg); }
 .chip { padding: 9px 14px; border-radius: 999px; background: var(--ink); color: var(--bg); font-weight: 800; font-size: .8rem; white-space: nowrap; transition: transform .2s; }
 .chip:active { transform: scale(.96); }
 .chip--ghost { background: var(--card); color: var(--ink); border: 1.5px solid var(--line); }
