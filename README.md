@@ -6,6 +6,12 @@
 |---|---|---|
 | RAZOR & CO. | Лендінг барбершопу з онлайн-записом | [`barbershop/`](barbershop/) |
 | NORTH SOLE | Інтернет-магазин кросівок: каталог, фільтри, кошик, checkout | [`sneakers/`](sneakers/) |
+| BREW LAB | Telegram Mini App кав'ярні: меню, замовлення на виніс, картка лояльності | [`coffee/`](coffee/) |
+
+### Telegram Mini App (`coffee/`)
+
+Це звичайна веб-сторінка з підключеним `telegram-web-app.js`. У браузері працює із запасною кнопкою, усередині Telegram — з рідними `MainButton`, `BackButton` і haptic.
+Щоб відкрити в Telegram: створіть бота в [@BotFather](https://t.me/BotFather) → `/newapp` (або кнопка меню в `/mybots`) → вкажіть адресу `https://<ваш-нік>.github.io/portfolio/coffee/`.
 
 Локальний запуск:
 

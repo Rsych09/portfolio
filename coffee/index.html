@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <title>BREW LAB — меню та замовлення</title>
+  <meta name="description" content="Telegram Mini App кав'ярні BREW LAB: меню, замовлення на виніс і картка лояльності.">
+  <meta name="theme-color" content="#f6efe4">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="uk_UA">
+  <meta property="og:title" content="BREW LAB — меню та замовлення">
+  <meta property="og:description" content="Замовте каву в Telegram за пів хвилини. Картка лояльності: 7-ма кава в подарунок.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1760306081298-93e10f2be897?auto=format&fit=crop&w=1200&h=630&q=75">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%232b1d14'/><path d='M16 24h28v14a10 10 0 0 1-10 10h-8a10 10 0 0 1-10-10z' fill='%23e8a15c'/><path d='M44 28h4a5 5 0 0 1 0 10h-4' fill='none' stroke='%23e8a15c' stroke-width='4'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app" id="app">
+
+  <header class="top">
+    <div class="who">
+      <span class="avatar" id="avatar" aria-hidden="true">☕</span>
+      <div>
+        <p class="hello" id="hello">Привіт!</p>
+        <p class="where"><i class="dot" id="dot" aria-hidden="true"></i><span id="openText">Перевіряємо графік…</span></p>
+      </div>
+    </div>
+    <span class="chip chip--ghost">📍 Хрещатик, 20</span>
+  </header>
+
+  <!-- Loyalty -->
+  <section class="loyalty" aria-label="Картка лояльності">
+    <div class="loyalty__head">
+      <b>Картка лояльності</b>
+      <span id="loyaltyHint">Збирайте штампи</span>
+    </div>
+    <ol class="stamps" id="stamps" aria-hidden="true"></ol>
+  </section>
+
+  <nav class="cats" id="cats" aria-label="Категорії меню"></nav>
+
+  <main class="menu" id="menu"></main>
+
+  <footer class="foot">
+    <p>BREW LAB · Київ, вул. Хрещатик, 20 · щодня 08:00–21:00</p>
+    <p>Демо-проєкт: бренд, ціни й дані вигадані. Фото: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>.</p>
+  </footer>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<!-- Item sheet -->
+<div class="sheet" id="itemSheet" role="dialog" aria-modal="true" aria-label="Позиція меню" aria-hidden="true">
+  <button class="sheet__x" data-close aria-label="Закрити">×</button>
+  <div class="sheet__body" id="itemBody"></div>
+</div>
+
+<!-- Cart sheet -->
+<div class="sheet" id="cartSheet" role="dialog" aria-modal="true" aria-label="Кошик" aria-hidden="true">
+  <button class="sheet__x" data-close aria-label="Закрити">×</button>
+  <div class="sheet__body" id="cartBody"></div>
+</div>
+
+<!-- Запасна головна кнопка (поза Telegram). Фон = фону сторінки, щоб не фарбувати панель браузера -->
+<div class="mainbar" id="mainBar" hidden>
+  <button class="mainbtn" id="mainBtn" type="button"></button>
+</div>
+
+<div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
