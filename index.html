@@ -1,15 +1,16 @@
 <!doctype html>
 <html lang="uk">
 <head>
+  <script>document.documentElement.classList.add('js')</script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Сайти для бізнесу — демо-проєкти</title>
-  <meta name="description" content="Демо-проєкти: лендінги та сайти для бізнесу з онлайн-записом, галереями та адаптивним дизайном.">
+  <title>Сайти, що продають — лендінги, магазини, Telegram Mini App</title>
+  <meta name="description" content="Розробляю лендінги, інтернет-магазини, Telegram Mini App і системи онлайн-запису для бізнесу. Швидко, адаптивно, без конструкторів. Подивіться живі демо-проєкти.">
   <meta name="theme-color" content="#0b0b0c">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="uk_UA">
-  <meta property="og:title" content="Сайти для бізнесу — демо-проєкти">
-  <meta property="og:description" content="Демо-проєкти: лендінги та сайти для бізнесу.">
+  <meta property="og:title" content="Сайти, що продають за вас">
+  <meta property="og:description" content="Лендінги, інтернет-магазини, Telegram Mini App та онлайн-запис. Живі демо — відкрийте з телефона й перевірте.">
   <meta property="og:image" content="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=1200&h=630&q=75">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%230b0b0c'/><circle cx='32' cy='32' r='11' fill='%23ff4d1c'/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,14 +20,17 @@
   <style>
     :root {
       --bg: #0b0b0c;
+      --card: #111113;
       --ink: #f2f0eb;
       --muted: #8b8983;
       --line: #26262a;
       --accent: #ff4d1c;
+      --accent-2: #ff9a3c;
+      --ok: #3ddc84;
       --ease: cubic-bezier(.2, .7, .2, 1);
     }
     *, *::before, *::after { box-sizing: border-box; }
-    html { color-scheme: dark; scroll-behavior: smooth; }
+    html { color-scheme: dark; scroll-behavior: smooth; scroll-padding-top: 80px; }
     body {
       margin: 0; background: var(--bg); color: var(--ink);
       font: 17px/1.55 'Onest', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -35,27 +39,127 @@
     a { color: inherit; text-decoration: none; }
     h1, h2, h3, p, ul { margin: 0; padding: 0; }
     ul { list-style: none; }
-    .wrap { width: min(1180px, 100% - 40px); margin-inline: auto; }
+    img { display: block; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+    .wrap { position: relative; z-index: 1; width: min(1180px, 100% - 40px); margin-inline: auto; }
 
-    /* Header */
-    .top { display: flex; justify-content: space-between; align-items: center; padding: 26px 0; font-weight: 600; }
-    .brand { display: inline-flex; align-items: center; gap: 10px; letter-spacing: -.01em; }
-    .brand i { width: 14px; height: 14px; border-radius: 50%; background: var(--accent); display: block; }
-    .links { display: flex; gap: 26px; font-size: .95rem; }
-    .links a { position: relative; padding-bottom: 2px; }
-    .links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform .35s var(--ease); }
-    .links a:hover::after { transform: scaleX(1); }
+    /* ---------- Фон: сітка, світні плями, світло за курсором ---------- */
+    .bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+    .bg__grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+      background-size: 64px 64px;
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 20%, #000 20%, transparent 75%);
+              mask-image: radial-gradient(ellipse 80% 60% at 50% 20%, #000 20%, transparent 75%);
+    }
+    .blob { position: absolute; border-radius: 50%; will-change: transform; }
+    .blob--a { width: 60vmax; height: 60vmax; left: -18vmax; top: -22vmax; background: radial-gradient(circle, rgba(255,77,28,.30), transparent 62%); animation: drift-a 24s ease-in-out infinite alternate; }
+    .blob--b { width: 50vmax; height: 50vmax; right: -16vmax; top: 6vmax; background: radial-gradient(circle, rgba(255,154,60,.18), transparent 62%); animation: drift-b 30s ease-in-out infinite alternate; }
+    .blob--c { width: 44vmax; height: 44vmax; left: 20vmax; bottom: -24vmax; background: radial-gradient(circle, rgba(255,77,28,.16), transparent 62%); animation: drift-a 28s ease-in-out infinite alternate-reverse; }
+    @keyframes drift-a { to { transform: translate3d(8vmax, 6vmax, 0) scale(1.15); } }
+    @keyframes drift-b { to { transform: translate3d(-7vmax, 9vmax, 0) scale(.9); } }
+    .glow { position: fixed; left: 0; top: 0; z-index: 0; width: 520px; height: 520px; margin: -260px 0 0 -260px; border-radius: 50%; pointer-events: none; opacity: 0; background: radial-gradient(circle, rgba(255,77,28,.13), transparent 65%); transition: opacity .6s; will-change: transform; }
+    .glow.on { opacity: 1; }
 
-    /* Hero */
-    .hero { padding: clamp(60px, 11vw, 150px) 0 clamp(50px, 8vw, 100px); }
-    .label { display: inline-flex; align-items: center; gap: 10px; font-size: .85rem; font-weight: 600; color: var(--muted); margin-bottom: 28px; }
-    .label::before { content: ''; width: 28px; height: 2px; background: var(--accent); }
-    .hero h1 { font-weight: 800; letter-spacing: -.045em; line-height: .95; font-size: clamp(3rem, 10.5vw, 9rem); max-width: 1000px; }
-    .hero h1 mark { background: none; color: inherit; background-image: linear-gradient(var(--accent), var(--accent)); background-repeat: no-repeat; background-size: 100% .14em; background-position: 0 92%; }
-    .hero .lead { margin-top: 34px; max-width: 540px; color: var(--muted); font-size: 1.15rem; }
+    .progress { position: fixed; left: 0; top: 0; right: 0; height: 3px; z-index: 60; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transform: scaleX(0); transform-origin: left; }
 
-    /* Work list */
-    .list-head { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 14px; border-bottom: 2px solid var(--ink); font-weight: 700; }
+    /* ---------- Шапка ---------- */
+    .top { position: sticky; top: 0; z-index: 50; transition: background .4s, backdrop-filter .4s, border-color .4s; border-bottom: 1px solid transparent; }
+    .top.is-stuck { background: rgba(11,11,12,.72); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-color: var(--line); }
+    .top__in { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 18px 0; font-weight: 600; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; letter-spacing: -.01em; white-space: nowrap; }
+    .brand i { position: relative; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); display: block; }
+    .brand i::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--accent); animation: ping 2.4s var(--ease) infinite; }
+    @keyframes ping { 0% { transform: scale(1); opacity: .7; } 80%, 100% { transform: scale(3); opacity: 0; } }
+    .nav { display: flex; align-items: center; gap: 28px; font-size: .95rem; }
+    .nav a:not(.pill) { position: relative; padding-bottom: 2px; color: var(--muted); transition: color .3s; }
+    .nav a:not(.pill):hover { color: var(--ink); }
+    .nav a:not(.pill)::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .35s var(--ease); }
+    .nav a:not(.pill):hover::after { transform: scaleX(1); }
+    .pill { white-space: nowrap; padding: 10px 20px; border-radius: 999px; background: var(--ink); color: var(--bg); font-weight: 600; transition: transform .3s var(--ease), background .3s, color .3s; }
+    .pill:hover { background: var(--accent); color: #fff; transform: translateY(-2px); }
+
+    /* ---------- Hero ---------- */
+    .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; padding: clamp(40px, 7vw, 90px) 0 clamp(40px, 6vw, 70px); }
+    .badge { display: inline-flex; align-items: center; gap: 10px; padding: 7px 16px 7px 12px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.03); font-size: .85rem; font-weight: 500; color: var(--muted); margin-bottom: 28px; }
+    .badge i { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 0 rgba(61,220,132,.6); animation: pulse 2s infinite; }
+    @keyframes pulse { 70% { box-shadow: 0 0 0 9px rgba(61,220,132,0); } 100% { box-shadow: 0 0 0 0 rgba(61,220,132,0); } }
+    h1 { font-weight: 800; letter-spacing: -.045em; line-height: .98; font-size: clamp(2.7rem, 6.6vw, 6rem); }
+    .w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 .04em .12em; margin: 0 -.04em; }
+    .w > span { display: inline-block; transform: translateY(110%); animation: rise 1s var(--ease) forwards; animation-delay: var(--d, 0s); }
+    @keyframes rise { to { transform: none; } }
+    .grad { background: linear-gradient(100deg, var(--accent) 10%, var(--accent-2) 50%, var(--accent) 90%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; animation: rise 1s var(--ease) forwards, shine 5s linear infinite; animation-delay: var(--d, 0s), 0s; }
+    @keyframes shine { to { background-position: -200% 0; } }
+
+    .rotline { margin-top: 30px; font-size: clamp(1.15rem, 2.2vw, 1.6rem); font-weight: 500; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0 .45em; }
+    .rot { display: inline-grid; color: var(--ink); font-weight: 700; }
+    .rot > span { grid-area: 1 / 1; opacity: 0; transform: translateY(70%); transition: opacity .55s var(--ease), transform .55s var(--ease); }
+    .rot > .on { opacity: 1; transform: none; }
+    .rot > .out { opacity: 0; transform: translateY(-70%); }
+    .lead { margin-top: 18px; max-width: 520px; color: var(--muted); font-size: 1.08rem; }
+    .actions { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 14px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 17px 30px; border-radius: 999px; font-weight: 600; font-size: 1rem; border: 1.5px solid transparent; cursor: pointer; transition: transform .3s var(--ease), gap .3s var(--ease), background .3s, color .3s, border-color .3s, box-shadow .3s; }
+    .btn:hover { gap: 18px; }
+    .btn--main { background: var(--accent); color: #fff; box-shadow: 0 10px 40px -10px rgba(255,77,28,.7); }
+    .btn--main:hover { box-shadow: 0 14px 50px -8px rgba(255,77,28,.9); transform: translateY(-3px); }
+    .btn--ghost { border-color: var(--line); color: var(--ink); background: rgba(255,255,255,.03); }
+    .btn--ghost:hover { border-color: var(--ink); transform: translateY(-3px); }
+    .btn--dark { background: #0b0b0c; color: #fff; }
+    .btn--dark:hover { transform: translateY(-3px); }
+    .btn--line { border-color: rgba(255,255,255,.55); color: #fff; }
+    .btn--line:hover { background: #fff; color: var(--accent); transform: translateY(-3px); }
+
+    .stats { margin-top: 48px; display: flex; flex-wrap: wrap; gap: 14px 44px; }
+    .stat b { display: inline-block; font-size: clamp(1.9rem, 3.4vw, 2.6rem); font-weight: 800; letter-spacing: -.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+    .stat i { font-style: normal; font-weight: 800; font-size: clamp(1.9rem, 3.4vw, 2.6rem); letter-spacing: -.04em; color: var(--accent); }
+    .stat span { display: block; margin-top: 6px; font-size: .85rem; color: var(--muted); max-width: 150px; line-height: 1.35; }
+
+    /* Сцена з картками проєктів */
+    .stage { position: relative; height: clamp(380px, 46vw, 560px); }
+    .pcard { position: absolute; width: var(--w); left: var(--l); right: var(--r2); top: var(--t); bottom: var(--b); z-index: var(--z, 1); transform: translate3d(calc(var(--px, 0) * var(--depth, 10) * 1px), calc(var(--py, 0) * var(--depth, 10) * 1px), 0) rotate(var(--rot, 0deg)); transition: transform .5s var(--ease); }
+    .pcard__in { border-radius: 20px; overflow: hidden; background: var(--card); border: 1px solid rgba(255,255,255,.1); box-shadow: 0 30px 60px -20px rgba(0,0,0,.8), 0 0 0 1px rgba(0,0,0,.4); animation: float 7s ease-in-out infinite; animation-delay: var(--fd, 0s); }
+    @keyframes float { 50% { transform: translateY(-14px); } }
+    .pcard img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+    .pcard__bar { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 11px 14px; font-size: .78rem; }
+    .pcard__bar b { font-weight: 700; letter-spacing: -.01em; }
+    .pcard__bar span { color: var(--accent); font-weight: 500; }
+    .toast { position: absolute; z-index: 5; display: inline-flex; align-items: center; gap: 10px; padding: 11px 16px; border-radius: 14px; background: rgba(24,24,27,.88); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.12); font-size: .82rem; font-weight: 600; box-shadow: 0 16px 40px -12px rgba(0,0,0,.8); opacity: 0; animation: toast 8s var(--ease) infinite; animation-delay: var(--td, 0s); }
+    .toast i { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--ok); color: #06210f; font-style: normal; font-size: .75rem; }
+    @keyframes toast { 0% { opacity: 0; transform: translateY(14px) scale(.96); } 8%, 40% { opacity: 1; transform: none; } 50%, 100% { opacity: 0; transform: translateY(-10px) scale(.98); } }
+
+    /* ---------- Бігуча стрічка ---------- */
+    .marquee { position: relative; z-index: 1; overflow: hidden; border-block: 1px solid var(--line); background: rgba(255,255,255,.02); -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+    .marquee__track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+    .marquee:hover .marquee__track { animation-play-state: paused; }
+    .marquee__track ul { display: flex; flex-shrink: 0; }
+    .marquee__track li { display: flex; align-items: center; gap: 28px; padding: 20px 14px 20px 0; font-size: clamp(1.2rem, 2.4vw, 1.7rem); font-weight: 700; letter-spacing: -.02em; white-space: nowrap; }
+    .marquee__track li::after { content: '✦'; color: var(--accent); font-size: .9rem; margin-left: 14px; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    /* ---------- Секції ---------- */
+    .sec { padding: clamp(70px, 10vw, 130px) 0 0; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: .85rem; font-weight: 600; color: var(--muted); margin-bottom: 18px; }
+    .eyebrow::before { content: ''; width: 28px; height: 2px; background: var(--accent); }
+    .sec h2 { font-weight: 800; letter-spacing: -.04em; line-height: 1; font-size: clamp(2rem, 5vw, 3.6rem); max-width: 760px; }
+    .sec__sub { margin-top: 16px; max-width: 560px; color: var(--muted); }
+
+    /* Послуги */
+    .svc-grid { margin-top: 48px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .svc { position: relative; display: flex; flex-direction: column; padding: 28px 26px 26px; min-height: 340px; border-radius: 24px; background: var(--card); border: 1px solid var(--line); overflow: hidden; transition: transform .5s var(--ease), border-color .4s; }
+    .svc::before { content: ''; position: absolute; inset: 0; background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 0%), rgba(255,77,28,.2), transparent 62%); opacity: 0; transition: opacity .4s; pointer-events: none; }
+    .svc:hover { transform: translateY(-6px); border-color: rgba(255,77,28,.5); }
+    .svc:hover::before { opacity: 1; }
+    .svc > * { position: relative; }
+    .svc__ic { width: 54px; height: 54px; border-radius: 16px; display: grid; place-items: center; background: rgba(255,77,28,.12); color: var(--accent); margin-bottom: 26px; transition: transform .5s var(--ease), background .4s, color .4s; }
+    .svc:hover .svc__ic { background: var(--accent); color: #fff; transform: rotate(-8deg) scale(1.06); }
+    .svc__ic svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .svc h3 { font-size: 1.35rem; font-weight: 700; letter-spacing: -.025em; line-height: 1.15; }
+    .svc p { margin-top: 12px; color: var(--muted); font-size: .95rem; }
+    .svc__more { margin-top: auto; padding-top: 22px; display: inline-flex; align-items: center; gap: 8px; font-size: .88rem; font-weight: 600; color: var(--ink); transition: gap .3s var(--ease), color .3s; }
+    .svc__more:hover { gap: 14px; color: var(--accent); }
+
+    /* Проєкти */
+    .list-head { margin-top: 48px; display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 14px; border-bottom: 2px solid var(--ink); font-weight: 700; }
     .list-head span:last-child { color: var(--muted); font-weight: 500; font-size: .9rem; }
     .work {
       display: grid; grid-template-columns: 56px 1.1fr 1.3fr 220px 48px; gap: 28px; align-items: center;
@@ -75,130 +179,440 @@
     .work:hover .work__thumb img { transform: scale(1.12) rotate(1deg); }
     .work__go { width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid currentColor; display: grid; place-items: center; font-size: 1.3rem; transition: all .4s var(--ease); }
     .work:hover .work__go { background: var(--accent); border-color: var(--accent); color: #fff; transform: rotate(-45deg); }
-
     .work--soon { cursor: default; color: var(--muted); }
     .work--soon:hover { background: none; color: var(--muted); border-radius: 0; border-color: var(--line); }
     .work--soon h3 { font-weight: 600; }
     .work--soon .work__thumb { background: repeating-linear-gradient(135deg, transparent 0 9px, var(--line) 9px 10px); border: 1px dashed var(--line); }
 
+    /* Процес */
+    .steps { margin-top: 56px; position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+    .steps__line { position: absolute; left: 0; right: 0; top: 27px; height: 2px; background: var(--line); }
+    .steps__line::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transform: scaleX(0); transform-origin: left; transition: transform 1.8s var(--ease) .3s; }
+    .steps.is-in .steps__line::after { transform: scaleX(1); }
+    .step { position: relative; }
+    .step__n { position: relative; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--bg); border: 2px solid var(--line); font-weight: 700; color: var(--muted); transition: border-color .5s, color .5s, background .5s, transform .5s var(--ease); transition-delay: var(--sd, 0s); }
+    .steps.is-in .step__n { border-color: var(--accent); color: var(--ink); background: rgba(255,77,28,.1); }
+    .step:hover .step__n { background: var(--accent); color: #fff; transform: scale(1.1); transition-delay: 0s; }
+    .step h3 { margin-top: 24px; font-size: 1.25rem; font-weight: 700; letter-spacing: -.02em; }
+    .step p { margin-top: 8px; color: var(--muted); font-size: .95rem; }
+
     /* CTA */
-    .cta { margin: clamp(70px, 10vw, 130px) 0; padding: clamp(36px, 6vw, 70px); background: var(--accent); color: #fff; border-radius: 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 30px; }
-    .cta h2 { font-weight: 800; letter-spacing: -.04em; line-height: 1; font-size: clamp(2rem, 5.5vw, 4rem); max-width: 620px; }
-    .btn { display: inline-flex; align-items: center; gap: 12px; padding: 18px 32px; border-radius: 999px; background: #0b0b0c; color: #fff; font-weight: 600; transition: transform .3s var(--ease), gap .3s var(--ease); }
-    .btn:hover { transform: translateY(-3px); gap: 18px; }
+    .cta { position: relative; overflow: hidden; margin: clamp(80px, 11vw, 140px) 0; padding: clamp(40px, 7vw, 84px); border-radius: 32px; color: #fff; background: linear-gradient(120deg, var(--accent), #ff7a1c 55%, var(--accent)); background-size: 220% 100%; animation: bgmove 10s ease-in-out infinite alternate; }
+    @keyframes bgmove { to { background-position: 100% 0; } }
+    .cta::before, .cta::after { content: ''; position: absolute; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.22); pointer-events: none; }
+    .cta::before { width: 520px; height: 520px; right: -140px; top: -200px; animation: spin 40s linear infinite; border-style: dashed; }
+    .cta::after { width: 320px; height: 320px; right: 30px; bottom: -190px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .cta > * { position: relative; z-index: 1; }
+    .cta h2 { font-weight: 800; letter-spacing: -.045em; line-height: .98; font-size: clamp(2.2rem, 6vw, 4.6rem); max-width: 760px; }
+    .cta p { margin-top: 18px; max-width: 520px; font-size: 1.1rem; color: rgba(255,255,255,.88); }
+    .cta .actions { margin-top: 36px; }
 
-    footer { padding: 0 0 36px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; color: var(--muted); font-size: .88rem; }
-    footer a { text-decoration: underline; text-underline-offset: 3px; }
+    footer { position: relative; z-index: 1; padding: 0 0 36px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; color: var(--muted); font-size: .88rem; }
+    footer a { text-decoration: underline; text-underline-offset: 3px; transition: color .3s; }
+    footer a:hover { color: var(--ink); }
 
-    /* Appear */
-    .in { animation: up .9s var(--ease) both; animation-delay: var(--d, 0s); }
-    @keyframes up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+    /* ---------- Поява при скролі ---------- */
+    .js .rv { opacity: 0; transform: translateY(32px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
+    .js .rv.is-in { opacity: 1; transform: none; }
+    .fade { animation: fade 1s var(--ease) both; animation-delay: var(--d, 0s); }
+    @keyframes fade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
 
+    /* ---------- Адаптив ---------- */
+    @media (max-width: 1020px) {
+      .svc-grid { grid-template-columns: repeat(2, 1fr); }
+      .svc { min-height: 300px; }
+    }
     @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; gap: 20px; }
+      .stage { height: 400px; max-width: 520px; margin-inline: auto; width: 100%; }
       .work { grid-template-columns: 1fr 120px; grid-template-areas: "main thumb" "desc desc"; gap: 14px 18px; margin-inline: -14px; padding: 22px 14px; }
       .work__n, .work__go { display: none; }
       .work__main { grid-area: main; }
       .work__info { grid-area: desc; }
       .work__thumb { grid-area: thumb; aspect-ratio: 1; }
+      .steps { grid-template-columns: 1fr 1fr; row-gap: 44px; }
+      .steps__line { display: none; }
     }
-    @media (max-width: 520px) {
-      .links { gap: 18px; }
-      .cta .btn { width: 100%; justify-content: center; }
+    @media (max-width: 640px) {
+      .nav a:not(.pill) { display: none; }
+      .pill { padding: 9px 16px; font-size: .88rem; }
+      .svc-grid { grid-template-columns: 1fr; }
+      .svc { min-height: 0; }
+      .steps { grid-template-columns: 1fr; }
+      .actions .btn { width: 100%; }
+      .stage { height: 340px; }
+      .toast { font-size: .74rem; padding: 9px 12px; }
     }
+    @media (hover: none) { .glow { display: none; } }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+      .marquee__track { animation: none; }
+      .toast { display: none; }
+      .js .rv { opacity: 1; transform: none; }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header class="top in">
-      <a class="brand" href="./" aria-label="На головну"><i aria-hidden="true"></i></a>
-      <nav class="links" aria-label="Контакти">
-        <a href="#" rel="noopener">Instagram</a>
-        <a href="#" rel="noopener">Telegram</a>
-      </nav>
-    </header>
-
-    <section class="hero">
-      <p class="label in" style="--d:.05s">Веб-розробка · Україна</p>
-      <h1 class="in" style="--d:.12s">Сайти для <mark>бізнесу</mark></h1>
-      <p class="lead in" style="--d:.22s">Швидкі адаптивні лендінги з онлайн-записом, галереями та зручними формами. Кожен проєкт нижче — живе демо, відкрийте з телефона й перевірте.</p>
-    </section>
-
-    <section aria-labelledby="works">
-      <div class="list-head in" style="--d:.3s">
-        <span id="works">Проєкти</span>
-        <span>Демо · бренди вигадані</span>
-      </div>
-
-      <!-- ===== ПРОЄКТ: копіюйте цей блок для нового сайту ===== -->
-      <a class="work in" style="--d:.38s" href="barbershop/" aria-label="Відкрити демо: RAZOR & CO.">
-        <span class="work__n">01</span>
-        <div class="work__main">
-          <h3>RAZOR &amp; CO.</h3>
-          <span class="work__cat">Барбершоп · Київ</span>
-        </div>
-        <div class="work__info">
-          <p class="work__desc">Лендінг із онлайн-записом у 4 кроки, прайсом, галереєю та статусом «відчинено зараз».</p>
-          <div class="work__tags"><span>Онлайн-запис</span><span>Галерея</span><span>Google Maps</span><span>Адаптив</span></div>
-        </div>
-        <div class="work__thumb"><img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=600&q=70" alt="Інтер'єр барбершопу RAZOR & CO." width="600" height="450" loading="eager"></div>
-        <span class="work__go" aria-hidden="true">→</span>
-      </a>
-      <!-- ===== кінець блоку ===== -->
-
-      <a class="work in" style="--d:.46s" href="sneakers/" aria-label="Відкрити демо: NORTH SOLE">
-        <span class="work__n">02</span>
-        <div class="work__main">
-          <h3>NORTH SOLE</h3>
-          <span class="work__cat">Інтернет-магазин · Кросівки та стрітвір</span>
-        </div>
-        <div class="work__info">
-          <p class="work__desc">Каталог із фільтрами та пошуком, картка товару з вибором розміру, кошик із промокодом і оформлення з Новою поштою.</p>
-          <div class="work__tags"><span>Каталог</span><span>Фільтри</span><span>Кошик</span><span>Checkout</span></div>
-        </div>
-        <div class="work__thumb"><img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=600&q=70" alt="Лаймові кросівки з каталогу NORTH SOLE" width="600" height="450" loading="lazy"></div>
-        <span class="work__go" aria-hidden="true">→</span>
-      </a>
-
-      <a class="work in" style="--d:.54s" href="coffee/" aria-label="Відкрити демо: BREW LAB">
-        <span class="work__n">03</span>
-        <div class="work__main">
-          <h3>BREW LAB</h3>
-          <span class="work__cat">Telegram Mini App · Кав'ярня</span>
-        </div>
-        <div class="work__info">
-          <p class="work__desc">Меню з розмірами та добавками, замовлення на виніс із вибором часу, картка лояльності й рідні кнопки Telegram.</p>
-          <div class="work__tags"><span>Telegram</span><span>Меню</span><span>Лояльність</span><span>Світла/темна тема</span></div>
-        </div>
-        <div class="work__thumb"><img src="https://images.unsplash.com/photo-1760306081298-93e10f2be897?auto=format&fit=crop&w=600&q=70" alt="Капучино з латте-артом" width="600" height="450" loading="lazy"></div>
-        <span class="work__go" aria-hidden="true">→</span>
-      </a>
-
-      <div class="work work--soon in" style="--d:.62s">
-        <span class="work__n">04</span>
-        <div class="work__main">
-          <h3>Наступний проєкт</h3>
-          <span class="work__cat" style="color:var(--muted)">Скоро</span>
-        </div>
-        <div class="work__info"><p class="work__desc">Тут з'явиться новий сайт.</p></div>
-        <div class="work__thumb"></div>
-        <span></span>
-      </div>
-    </section>
-
-    <section class="cta">
-      <h2>Потрібен сайт для вашого бізнесу?</h2>
-      <a class="btn" href="#" rel="noopener">Написати в Telegram <span aria-hidden="true">→</span></a>
-    </section>
-
-    <footer>
-      <span>© <span id="y"></span> Демо-проєкти, бренди й дані вигадані.</span>
-      <span>Фото: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></span>
-    </footer>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg" aria-hidden="true">
+    <div class="bg__grid"></div>
+    <div class="blob blob--a"></div>
+    <div class="blob blob--b"></div>
+    <div class="blob blob--c"></div>
   </div>
-  <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
+  <div class="glow" id="glow" aria-hidden="true"></div>
+
+  <header class="top" id="top">
+    <div class="wrap top__in">
+      <a class="brand" href="./" aria-label="На головну"><i aria-hidden="true"></i><span>Веб-розробка</span></a>
+      <nav class="nav" aria-label="Навігація">
+        <a href="#services">Послуги</a>
+        <a href="#works">Роботи</a>
+        <a href="#process">Як працюю</a>
+        <a class="pill" href="#contact">Обговорити проєкт</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <section class="hero" id="hero">
+        <div>
+          <p class="badge fade" style="--d:.05s"><i aria-hidden="true"></i>Беру нові проєкти · Україна</p>
+          <h1 aria-label="Сайти, що продають за вас">
+            <span class="w" aria-hidden="true"><span style="--d:.1s">Сайти,</span></span>
+            <span class="w" aria-hidden="true"><span style="--d:.18s">що</span></span>
+            <span class="w" aria-hidden="true"><span class="grad" style="--d:.26s">продають</span></span>
+            <span class="w" aria-hidden="true"><span style="--d:.34s">за&nbsp;вас</span></span>
+          </h1>
+          <p class="rotline fade" style="--d:.55s">
+            <span>Розробляю</span>
+            <span class="rot" id="rot" aria-live="off">
+              <span class="on">лендінги</span>
+              <span>інтернет-магазини</span>
+              <span>Telegram Mini App</span>
+              <span>системи онлайн-запису</span>
+            </span>
+          </p>
+          <p class="lead fade" style="--d:.65s">Швидкі адаптивні сайти для малого й середнього бізнесу. Без конструкторів і зайвого коду. Кожен проєкт нижче — живе демо: відкрийте з телефона й перевірте.</p>
+          <div class="actions fade" style="--d:.75s">
+            <a class="btn btn--main magnetic" href="#contact">Замовити сайт <span aria-hidden="true">→</span></a>
+            <a class="btn btn--ghost" href="#works">Дивитись роботи</a>
+          </div>
+          <div class="stats fade" style="--d:.9s">
+            <div class="stat"><b data-count="3">3</b><span>живі демо-проєкти</span></div>
+            <div class="stat"><b data-count="40">40</b><span>товарів у демо-магазині</span></div>
+            <div class="stat"><b data-count="100">100</b><i>%</i><span>адаптивність під телефон</span></div>
+          </div>
+        </div>
+
+        <div class="stage fade" style="--d:.4s" id="stage" aria-hidden="true">
+          <div class="pcard" style="--l:0;--t:12%;--w:58%;--rot:-5deg;--depth:16;--z:2">
+            <div class="pcard__in" style="--fd:0s">
+              <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=520&q=70" alt="" width="520" height="390">
+              <div class="pcard__bar"><b>RAZOR &amp; CO.</b><span>Лендінг</span></div>
+            </div>
+          </div>
+          <div class="pcard" style="--r2:0;--l:auto;--t:0;--w:52%;--rot:4deg;--depth:-12;--z:1">
+            <div class="pcard__in" style="--fd:-2.4s">
+              <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=520&q=70" alt="" width="520" height="390">
+              <div class="pcard__bar"><b>NORTH SOLE</b><span>Магазин</span></div>
+            </div>
+          </div>
+          <div class="pcard" style="--l:24%;--t:auto;--b:0;--w:54%;--rot:-2deg;--depth:22;--z:3">
+            <div class="pcard__in" style="--fd:-4.6s">
+              <img src="https://images.unsplash.com/photo-1760306081298-93e10f2be897?auto=format&fit=crop&w=520&q=70" alt="" width="520" height="390">
+              <div class="pcard__bar"><b>BREW LAB</b><span>Telegram Mini App</span></div>
+            </div>
+          </div>
+          <div class="toast" style="left:-2%;top:2%;--td:1s"><i>✓</i>Запис підтверджено</div>
+          <div class="toast" style="right:-2%;bottom:20%;--td:5s"><i>✓</i>Нове замовлення</div>
+        </div>
+      </section>
+    </div>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <ul>
+          <li>Лендінги</li><li>Інтернет-магазини</li><li>Telegram Mini App</li><li>Онлайн-запис</li><li>Адаптивна верстка</li><li>Швидке завантаження</li><li>Базове SEO</li><li>Підтримка після запуску</li>
+        </ul>
+        <ul>
+          <li>Лендінги</li><li>Інтернет-магазини</li><li>Telegram Mini App</li><li>Онлайн-запис</li><li>Адаптивна верстка</li><li>Швидке завантаження</li><li>Базове SEO</li><li>Підтримка після запуску</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <!-- ===== Послуги ===== -->
+      <section class="sec" id="services" aria-labelledby="services-h">
+        <p class="eyebrow rv">Що я роблю</p>
+        <h2 id="services-h" class="rv" style="--d:.06s">Рішення, що приводять клієнтів і заощаджують ваш час</h2>
+        <p class="sec__sub rv" style="--d:.12s">Від простої візитки до магазину та додатку в Telegram. Підберемо формат під вашу задачу й бюджет.</p>
+
+        <div class="svc-grid">
+          <article class="svc rv" style="--d:.05s">
+            <div class="svc__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/></svg></div>
+            <h3>Лендінги</h3>
+            <p>Односторінкові сайти під рекламу й соцмережі: чітка структура, швидке завантаження, зручна форма заявки.</p>
+            <a class="svc__more" href="barbershop/">Приклад: RAZOR &amp; CO. <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="svc rv" style="--d:.12s">
+            <div class="svc__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 8H6"/></svg></div>
+            <h3>Інтернет-магазини</h3>
+            <p>Каталог, фільтри, пошук, кошик і оформлення замовлення з доставкою. Легко додавати нові товари.</p>
+            <a class="svc__more" href="sneakers/">Приклад: NORTH SOLE <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="svc rv" style="--d:.19s">
+            <div class="svc__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 3 3 10.5l6.5 2.5L12 20l2.5-5.5L21 3Z"/><path d="m9.5 13 5-4"/></svg></div>
+            <h3>Telegram Mini App</h3>
+            <p>Додаток усередині Telegram: меню, замовлення, картка лояльності. Клієнтам не потрібно нічого встановлювати.</p>
+            <a class="svc__more" href="coffee/">Приклад: BREW LAB <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="svc rv" style="--d:.26s">
+            <div class="svc__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 15l2.5 2.5L16 13"/></svg></div>
+            <h3>Онлайн-запис</h3>
+            <p>Запис до майстра чи бронювання за кілька кроків: без дзвінків, зайвих переписок і забутих клієнтів.</p>
+            <a class="svc__more" href="barbershop/">Приклад: RAZOR &amp; CO. <span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===== Роботи ===== -->
+      <section class="sec" id="works" aria-labelledby="works-h">
+        <p class="eyebrow rv">Портфоліо</p>
+        <h2 id="works-h" class="rv" style="--d:.06s">Не слова, а живі проєкти</h2>
+        <p class="sec__sub rv" style="--d:.12s">Усе працює по-справжньому: натискайте, оформлюйте замовлення, записуйтесь.</p>
+
+        <div class="list-head rv">
+          <span>Проєкти</span>
+          <span>Демо · бренди вигадані</span>
+        </div>
+
+        <!-- ===== ПРОЄКТ: копіюйте цей блок для нового сайту ===== -->
+        <a class="work rv" href="barbershop/" aria-label="Відкрити демо: RAZOR & CO.">
+          <span class="work__n">01</span>
+          <div class="work__main">
+            <h3>RAZOR &amp; CO.</h3>
+            <span class="work__cat">Барбершоп · Київ</span>
+          </div>
+          <div class="work__info">
+            <p class="work__desc">Лендінг із онлайн-записом у 4 кроки, прайсом, галереєю та статусом «відчинено зараз».</p>
+            <div class="work__tags"><span>Онлайн-запис</span><span>Галерея</span><span>Google Maps</span><span>Адаптив</span></div>
+          </div>
+          <div class="work__thumb"><img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=600&q=70" alt="Інтер'єр барбершопу RAZOR & CO." width="600" height="450" loading="lazy"></div>
+          <span class="work__go" aria-hidden="true">→</span>
+        </a>
+        <!-- ===== кінець блоку ===== -->
+
+        <a class="work rv" href="sneakers/" aria-label="Відкрити демо: NORTH SOLE">
+          <span class="work__n">02</span>
+          <div class="work__main">
+            <h3>NORTH SOLE</h3>
+            <span class="work__cat">Інтернет-магазин · Кросівки та стрітвір</span>
+          </div>
+          <div class="work__info">
+            <p class="work__desc">Каталог із фільтрами та пошуком, картка товару з вибором розміру, кошик із промокодом і оформлення з Новою поштою.</p>
+            <div class="work__tags"><span>Каталог</span><span>Фільтри</span><span>Кошик</span><span>Checkout</span></div>
+          </div>
+          <div class="work__thumb"><img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=600&q=70" alt="Лаймові кросівки з каталогу NORTH SOLE" width="600" height="450" loading="lazy"></div>
+          <span class="work__go" aria-hidden="true">→</span>
+        </a>
+
+        <a class="work rv" href="coffee/" aria-label="Відкрити демо: BREW LAB">
+          <span class="work__n">03</span>
+          <div class="work__main">
+            <h3>BREW LAB</h3>
+            <span class="work__cat">Telegram Mini App · Кав'ярня</span>
+          </div>
+          <div class="work__info">
+            <p class="work__desc">Меню з розмірами та добавками, замовлення на виніс із вибором часу, картка лояльності й рідні кнопки Telegram.</p>
+            <div class="work__tags"><span>Telegram</span><span>Меню</span><span>Лояльність</span><span>Світла/темна тема</span></div>
+          </div>
+          <div class="work__thumb"><img src="https://images.unsplash.com/photo-1760306081298-93e10f2be897?auto=format&fit=crop&w=600&q=70" alt="Капучино з латте-артом" width="600" height="450" loading="lazy"></div>
+          <span class="work__go" aria-hidden="true">→</span>
+        </a>
+
+        <div class="work work--soon rv">
+          <span class="work__n">04</span>
+          <div class="work__main">
+            <h3>Ваш проєкт</h3>
+            <span class="work__cat" style="color:var(--muted)">Місце вільне</span>
+          </div>
+          <div class="work__info"><p class="work__desc">Тут може бути сайт вашого бізнесу.</p></div>
+          <div class="work__thumb"></div>
+          <span></span>
+        </div>
+      </section>
+
+      <!-- ===== Процес ===== -->
+      <section class="sec" id="process" aria-labelledby="process-h">
+        <p class="eyebrow rv">Як працюю</p>
+        <h2 id="process-h" class="rv" style="--d:.06s">Чотири кроки від ідеї до запуску</h2>
+        <p class="sec__sub rv" style="--d:.12s">Прозорий процес: ви завжди знаєте, на якому ми етапі й що буде далі.</p>
+
+        <div class="steps rv" id="steps">
+          <div class="steps__line" aria-hidden="true"></div>
+          <div class="step" style="--sd:.3s">
+            <div class="step__n">01</div>
+            <h3>Знайомство</h3>
+            <p>Обговорюємо ваш бізнес, цілі й сайти, які вам подобаються. Розумію задачу, пропоную формат.</p>
+          </div>
+          <div class="step" style="--sd:.8s">
+            <div class="step__n">02</div>
+            <h3>Структура й дизайн</h3>
+            <p>Узгоджуємо структуру та стиль, щоб ви одразу бачили, яким буде результат.</p>
+          </div>
+          <div class="step" style="--sd:1.3s">
+            <div class="step__n">03</div>
+            <h3>Розробка</h3>
+            <p>Верстаю й програмую швидкий адаптивний сайт, показую проміжні версії та враховую правки.</p>
+          </div>
+          <div class="step" style="--sd:1.8s">
+            <div class="step__n">04</div>
+            <h3>Запуск і підтримка</h3>
+            <p>Публікуємо сайт, підключаємо домен і залишаюся на зв'язку, якщо потрібні зміни.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Контакт ===== -->
+      <section class="cta rv" id="contact" aria-labelledby="contact-h">
+        <h2 id="contact-h">Маєте ідею? Зробимо з неї сайт, що працює</h2>
+        <p>Напишіть коротко про ваш бізнес — відповім і запропоную рішення та наступні кроки.</p>
+        <div class="actions">
+          <a class="btn btn--dark magnetic" data-contact="telegram" href="#" rel="noopener">Написати в Telegram <span aria-hidden="true">→</span></a>
+          <a class="btn btn--line" data-contact="instagram" href="#" rel="noopener">Instagram</a>
+        </div>
+      </section>
+
+      <footer>
+        <span>© <span id="y"></span> Демо-проєкти, бренди й дані вигадані.</span>
+        <span>Фото: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> · <a href="#hero">Нагору ↑</a></span>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      // ====== КОНТАКТИ: впишіть свої посилання тут ======
+      const CONTACTS = {
+        telegram: '#',   // наприклад: 'https://t.me/ваш_нік'
+        instagram: '#'   // наприклад: 'https://instagram.com/ваш_нік'
+      };
+      // ==================================================
+
+      const $ = (s, r = document) => r.querySelector(s);
+      const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+      $('#y').textContent = new Date().getFullYear();
+
+      $$('[data-contact]').forEach(a => {
+        const url = CONTACTS[a.dataset.contact];
+        if (url && url !== '#') { a.href = url; a.target = '_blank'; }
+      });
+
+      // Поява елементів при скролі
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+      }, { threshold: .15, rootMargin: '0px 0px -6% 0px' });
+      $$('.rv').forEach(el => io.observe(el));
+
+      // Шапка + смуга прогресу
+      const top = $('#top'), bar = $('#progress');
+      let ticking = false;
+      const onScroll = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
+          top.classList.toggle('is-stuck', y > 10);
+          bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(y / max, 1) : 0) + ')';
+          ticking = false;
+        });
+      };
+      addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // Слова, що змінюються
+      const words = $$('#rot > span');
+      if (!reduce && words.length > 1) {
+        let i = 0;
+        setInterval(() => {
+          const cur = words[i];
+          i = (i + 1) % words.length;
+          cur.classList.remove('on'); cur.classList.add('out');
+          words[i].classList.add('on');
+          setTimeout(() => cur.classList.remove('out'), 600);
+        }, 2600);
+      }
+
+      // Лічильники
+      const counters = $$('[data-count]');
+      if (!reduce) {
+        const cio = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            cio.unobserve(e.target);
+            const el = e.target, end = +el.dataset.count, t0 = performance.now(), dur = 1400;
+            const tick = (t) => {
+              const p = Math.min((t - t0) / dur, 1);
+              el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3)));
+              if (p < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+          });
+        }, { threshold: .6 });
+        counters.forEach(c => cio.observe(c));
+      }
+
+      // Крок-лінія процесу
+      const steps = $('#steps');
+      if (steps) new IntersectionObserver((entries, o) => {
+        entries.forEach(e => { if (e.isIntersecting) { steps.classList.add('is-in'); o.disconnect(); } });
+      }, { threshold: .3 }).observe(steps);
+
+      // Ефекти від курсора (лише мишка, без reduce-motion)
+      if (finePointer && !reduce) {
+        const glow = $('#glow');
+        let gx = 0, gy = 0, raf = 0;
+        addEventListener('pointermove', (e) => {
+          gx = e.clientX; gy = e.clientY;
+          glow.classList.add('on');
+          if (!raf) raf = requestAnimationFrame(() => { glow.style.transform = 'translate3d(' + gx + 'px,' + gy + 'px,0)'; raf = 0; });
+        }, { passive: true });
+        document.addEventListener('pointerleave', () => glow.classList.remove('on'));
+
+        // Паралакс карток у hero
+        const hero = $('#hero'), cards = $$('.pcard');
+        hero.addEventListener('pointermove', (e) => {
+          const r = hero.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
+          cards.forEach(c => { c.style.setProperty('--px', px.toFixed(3)); c.style.setProperty('--py', py.toFixed(3)); });
+        });
+        hero.addEventListener('pointerleave', () => cards.forEach(c => { c.style.setProperty('--px', 0); c.style.setProperty('--py', 0); }));
+
+        // Підсвітка карток послуг
+        $$('.svc').forEach(card => card.addEventListener('pointermove', (e) => {
+          const r = card.getBoundingClientRect();
+          card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+          card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+        }));
+
+        // Магнітні кнопки
+        $$('.magnetic').forEach(btn => {
+          btn.addEventListener('pointermove', (e) => {
+            const r = btn.getBoundingClientRect();
+            const dx = (e.clientX - (r.left + r.width / 2)) * .25, dy = (e.clientY - (r.top + r.height / 2)) * .35;
+            btn.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+          });
+          btn.addEventListener('pointerleave', () => { btn.style.transform = ''; });
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
