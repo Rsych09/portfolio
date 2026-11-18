@@ -208,7 +208,7 @@
     .cta p { margin-top: 18px; max-width: 520px; font-size: 1.1rem; color: rgba(255,255,255,.88); }
     .cta .actions { margin-top: 36px; }
 
-    footer { position: relative; z-index: 1; padding: 0 0 36px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; color: var(--muted); font-size: .88rem; }
+    footer { position: relative; z-index: 1; padding: 0 0 36px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 24px; color: var(--muted); font-size: .88rem; }
     footer a { text-decoration: underline; text-underline-offset: 3px; transition: color .3s; }
     footer a:hover { color: var(--ink); }
 
@@ -488,8 +488,7 @@
       </section>
 
       <footer>
-        <span>© <span id="y"></span> Демо-проєкти, бренди й дані вигадані.</span>
-        <span>Фото: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> · <a href="#hero">Нагору ↑</a></span>
+        <a href="#hero">Нагору ↑</a>
       </footer>
     </div>
   </main>
@@ -507,8 +506,6 @@
       const $$ = (s, r = document) => [...r.querySelectorAll(s)];
       const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
       const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-      $('#y').textContent = new Date().getFullYear();
 
       $$('[data-contact]').forEach(a => {
         const url = CONTACTS[a.dataset.contact];
